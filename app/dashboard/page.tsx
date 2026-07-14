@@ -101,9 +101,9 @@ export default function Dashboard() {
       <nav className="flex items-center justify-between px-8 py-4 border-b border-gray-200 bg-white">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 bg-black rounded-md flex items-center justify-center">
-            <span className="text-white text-xs font-bold">cb</span>
+            <span className="text-white text-xs font-bold">cr</span>
           </div>
-          <span className="font-semibold text-gray-900 text-sm">CoachBetter.ai</span>
+          <span className="font-semibold text-gray-900 text-sm">Coachtribe Review</span>
         </div>
         <button onClick={handleSignOut} className="text-sm text-gray-500 hover:text-gray-900">
           Sign out

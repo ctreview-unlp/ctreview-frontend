@@ -30,7 +30,7 @@ export default function LoginPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-full max-w-sm">
         <div className="flex items-center gap-2 mb-8">
           <div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
-            <span className="text-white text-xs font-bold">cb</span>
+            <span className="text-white text-xs font-bold">cr</span>
           </div>
           <span className="font-semibold text-gray-900">CoachBetter.ai</span>
         </div>
