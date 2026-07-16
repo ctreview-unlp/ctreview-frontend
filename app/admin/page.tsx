@@ -21,8 +21,8 @@ export default function AdminPanel() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [newEmail, setNewEmail] = useState('')
-  const [newPassword, setNewPassword] = useState('')
   const [creating, setCreating] = useState(false)
+  const [inviteSent, setInviteSent] = useState('')
 
   async function fetchData(t: Tab) {
     setLoading(true)
@@ -45,17 +45,19 @@ export default function AdminPanel() {
   useEffect(() => { fetchData(tab) }, [tab])
 
   async function handleCreateUser() {
-    if (!newEmail || !newPassword) return
+    if (!newEmail) return
     setCreating(true)
+    setInviteSent('')
+    setError('')
     try {
       const headers = await getAuthHeaders()
       const res = await fetch(
-        `${API_URL}/admin/users?email=${encodeURIComponent(newEmail)}&password=${encodeURIComponent(newPassword)}`,
+        `${API_URL}/admin/users?email=${encodeURIComponent(newEmail)}`,
         { method: 'POST', headers }
       )
       if (!res.ok) throw new Error('Failed to create user')
+      setInviteSent(newEmail)
       setNewEmail('')
-      setNewPassword('')
       fetchData('users')
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to create user')
@@ -112,7 +114,7 @@ export default function AdminPanel() {
         {tab === 'users' && (
           <div>
             <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-              <h2 className="text-sm font-semibold text-gray-700 mb-4">Create new user</h2>
+              <h2 className="text-sm font-semibold text-gray-700 mb-4">Invite new user</h2>
               <div className="flex gap-3">
                 <input
                   type="email"
@@ -121,21 +123,19 @@ export default function AdminPanel() {
                   placeholder="Email address"
                   className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900"
                 />
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={e => setNewPassword(e.target.value)}
-                  placeholder="Password"
-                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900"
-                />
                 <button
                   onClick={handleCreateUser}
-                  disabled={creating}
+                  disabled={creating || !newEmail}
                   className="bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 disabled:opacity-40"
                 >
-                  {creating ? 'Creating...' : 'Create'}
+                  {creating ? 'Sending...' : 'Send invite'}
                 </button>
               </div>
+              {inviteSent && (
+                <p className="text-sm text-green-600 mt-3">
+                  Invite sent to {inviteSent} — they will receive an email to set their password.
+                </p>
+              )}
             </div>
 
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">

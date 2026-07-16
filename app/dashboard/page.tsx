@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { supabase } from '@/app/lib/supabase'
 import { uploadFilesToSupabase, createSession, getSessionStatus, evaluateReflection } from '@/app/lib/api'
 
@@ -25,6 +25,12 @@ export default function Dashboard() {
   const [reflectionLoading, setReflectionLoading] = useState(false)
   const [reflectionReport, setReflectionReport] = useState<string | null>(null)
   const [reflectionError, setReflectionError] = useState('')
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) window.location.href = '/login'
+    })
+  }, [])
 
   async function handleSignOut() {
     await supabase.auth.signOut()
@@ -236,7 +242,7 @@ export default function Dashboard() {
             )}
 
             {sessionState === 'complete' && reportUrl && (
-            <a  
+              <a
                 href={reportUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -302,7 +308,7 @@ export default function Dashboard() {
             )}
 
             {reflectionReport && (
-            <a  
+              <a
                 href={reflectionReport}
                 target="_blank"
                 rel="noopener noreferrer"
