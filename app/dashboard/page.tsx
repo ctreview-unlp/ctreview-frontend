@@ -106,11 +106,15 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#F7F6F3] text-[#141210] antialiased selection:bg-[#7A3A42]/12 selection:text-[#7A3A42]">
-      <nav className="sticky top-0 z-20 flex h-12 items-center justify-between border-b border-[#E8E2D8] bg-white/90 px-5 backdrop-blur-xl sm:px-8 lg:px-10">
-        <div className="flex items-center gap-2">
-          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#15233F]">
-            <span className="text-[9px] font-semibold tracking-[0.08em] text-white">CR</span>
-          </div>
+      <nav className="sticky top-0 z-20 flex h-12 items-center justify-between overflow-visible border-b border-[#E8E2D8] bg-white/90 px-5 backdrop-blur-xl sm:px-8 lg:px-10">
+        <div className="flex items-center gap-2.5">
+          <img
+            src="/cr-logo.png?v=2"
+            alt="Coachtribe Review"
+            width={269}
+            height={282}
+            className="h-7 w-auto object-contain"
+          />
           <span className="text-[14px] font-semibold tracking-[-0.02em] text-[#141210]">Coachtribe Review</span>
         </div>
         <button
