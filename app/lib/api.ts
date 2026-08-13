@@ -17,19 +17,19 @@ export async function uploadFilesToSupabase(files: File[], sessionId: string): P
   if (!session) throw new Error('Not authenticated')
 
   const paths: string[] = []
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
   for (const file of files) {
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
     const path = `${session.user.id}/videos/${sessionId}/${safeName}`
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
     await new Promise<void>((resolve, reject) => {
       const upload = new tus.Upload(file, {
         endpoint: `${supabaseUrl}/storage/v1/upload/resumable`,
         retryDelays: [0, 3000, 5000, 10000, 20000],
         headers: {
-          authorization: `Bearer ${session.access_token}`,
+          authorization: `Bearer ${supabaseAnonKey}`,
           'x-upsert': 'true',
         },
         uploadDataDuringCreation: true,
@@ -40,7 +40,7 @@ export async function uploadFilesToSupabase(files: File[], sessionId: string): P
           contentType: file.type,
           cacheControl: '3600',
         },
-        chunkSize: 6 * 1024 * 1024, // 6MB chunks
+        chunkSize: 6 * 1024 * 1024,
         onError: (error) => {
           console.error('Upload error:', error)
           reject(new Error(`Upload failed: ${error.message}`))
