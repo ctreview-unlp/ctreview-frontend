@@ -10,6 +10,8 @@ async function getAuthHeaders(): Promise<Record<string, string>> {
   }
 }
 
+import * as tus from 'tus-js-client'
+
 export async function uploadFilesToSupabase(files: File[], sessionId: string): Promise<string[]> {
   const { data: { session } } = await supabase.auth.getSession()
   if (!session) throw new Error('Not authenticated')
@@ -19,12 +21,44 @@ export async function uploadFilesToSupabase(files: File[], sessionId: string): P
   for (const file of files) {
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
     const path = `${session.user.id}/videos/${sessionId}/${safeName}`
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-    const { error } = await supabase.storage
-      .from('videos')
-      .upload(path, file, { contentType: file.type })
+    await new Promise<void>((resolve, reject) => {
+      const upload = new tus.Upload(file, {
+        endpoint: `${supabaseUrl}/storage/v1/upload/resumable`,
+        retryDelays: [0, 3000, 5000, 10000, 20000],
+        headers: {
+          authorization: `Bearer ${session.access_token}`,
+          'x-upsert': 'true',
+        },
+        uploadDataDuringCreation: true,
+        removeFingerprintOnSuccess: true,
+        metadata: {
+          bucketName: 'videos',
+          objectName: path,
+          contentType: file.type,
+          cacheControl: '3600',
+        },
+        chunkSize: 6 * 1024 * 1024, // 6MB chunks
+        onError: (error) => {
+          console.error('Upload error:', error)
+          reject(new Error(`Upload failed: ${error.message}`))
+        },
+        onSuccess: () => {
+          console.log(`Uploaded ${file.name} to ${path}`)
+          resolve()
+        },
+      })
 
-    if (error) throw new Error(`Upload failed: ${error.message}`)
+      upload.findPreviousUploads().then((previousUploads) => {
+        if (previousUploads.length > 0) {
+          upload.resumeFromPreviousUpload(previousUploads[0])
+        }
+        upload.start()
+      })
+    })
+
     paths.push(path)
   }
 
