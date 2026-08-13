@@ -22,7 +22,7 @@ export async function uploadFilesToSupabase(files: File[], sessionId: string): P
 
   for (const file of files) {
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
-    const path = `${session.user.id}/videos/${sessionId}/${safeName}`
+    const path = `${session.user.id}/${sessionId}/${safeName}`
 
     await new Promise<void>((resolve, reject) => {
       const upload = new tus.Upload(file, {
