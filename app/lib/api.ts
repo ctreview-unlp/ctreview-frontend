@@ -1,3 +1,4 @@
+import * as tus from 'tus-js-client'
 import { supabase } from '@/app/lib/supabase'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
@@ -10,39 +11,6 @@ async function getAuthHeaders(): Promise<Record<string, string>> {
   }
 }
 
-function uploadFileWithProgress(
-  signedUrl: string,
-  file: File,
-  onProgress: (loaded: number) => void
-): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
-    xhr.open('PUT', signedUrl)
-
-    xhr.upload.onprogress = (event) => {
-      if (event.lengthComputable) onProgress(event.loaded)
-    }
-
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        onProgress(file.size)
-        resolve()
-        return
-      }
-      reject(new Error(`Upload failed: ${xhr.status} ${xhr.responseText || xhr.statusText}`))
-    }
-
-    xhr.onerror = () => reject(new Error('Upload failed: network error'))
-    xhr.onabort = () => reject(new Error('Upload cancelled'))
-
-    // Match Supabase storage-js signed upload body format
-    const body = new FormData()
-    body.append('cacheControl', '3600')
-    body.append('', file)
-    xhr.send(body)
-  })
-}
-
 export async function uploadFilesToSupabase(
   files: File[],
   sessionId: string,
@@ -52,6 +20,8 @@ export async function uploadFilesToSupabase(
   if (!session) throw new Error('Not authenticated')
 
   const paths: string[] = []
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   const totalBytes = files.reduce((sum, file) => sum + Math.max(file.size, 1), 0)
   let completedBytes = 0
 
@@ -62,27 +32,48 @@ export async function uploadFilesToSupabase(
 
   for (const file of files) {
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
-    const path = `${session.user.id}/videos/${sessionId}/${safeName}`
+    const path = `${session.user.id}/${sessionId}/${safeName}`
 
-    const { data: signed, error: signError } = await supabase.storage
-      .from('videos')
-      .createSignedUploadUrl(path)
+    await new Promise<void>((resolve, reject) => {
+      const upload = new tus.Upload(file, {
+        endpoint: `${supabaseUrl}/storage/v1/upload/resumable`,
+        retryDelays: [0, 3000, 5000, 10000, 20000],
+        headers: {
+          authorization: `Bearer ${supabaseAnonKey}`,
+          'x-upsert': 'true',
+        },
+        uploadDataDuringCreation: true,
+        removeFingerprintOnSuccess: true,
+        metadata: {
+          bucketName: 'videos',
+          objectName: path,
+          contentType: file.type,
+          cacheControl: '3600',
+        },
+        chunkSize: 6 * 1024 * 1024,
+        onError: (error) => {
+          console.error('Upload error:', error)
+          reject(new Error(`Upload failed: ${error.message}`))
+        },
+        onProgress: (bytesUploaded) => {
+          report(bytesUploaded)
+        },
+        onSuccess: () => {
+          console.log(`Uploaded ${file.name} to ${path}`)
+          resolve()
+        },
+      })
 
-    if (signError || !signed?.signedUrl) {
-      // Fallback without byte-level progress if signed uploads are unavailable
-      report(0)
-      const { error } = await supabase.storage
-        .from('videos')
-        .upload(path, file, { contentType: file.type })
-      if (error) throw new Error(`Upload failed: ${error.message}`)
-      completedBytes += Math.max(file.size, 1)
-      report(0)
-    } else {
-      await uploadFileWithProgress(signed.signedUrl, file, (loaded) => report(loaded))
-      completedBytes += Math.max(file.size, 1)
-      report(0)
-    }
+      upload.findPreviousUploads().then((previousUploads) => {
+        if (previousUploads.length > 0) {
+          upload.resumeFromPreviousUpload(previousUploads[0])
+        }
+        upload.start()
+      })
+    })
 
+    completedBytes += Math.max(file.size, 1)
+    report(0)
     paths.push(path)
   }
 
