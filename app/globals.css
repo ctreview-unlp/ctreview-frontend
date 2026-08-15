@@ -1,2 +1,16 @@
 @import "tailwindcss";
 
+@keyframes progress-indeterminate {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+.progress-indeterminate {
+  width: 35%;
+  animation: progress-indeterminate 1.35s ease-in-out infinite;
+}
+

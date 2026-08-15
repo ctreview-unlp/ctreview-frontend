@@ -1,3 +1,4 @@
+import * as tus from 'tus-js-client'
 import { supabase } from '@/app/lib/supabase'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
@@ -10,15 +11,24 @@ async function getAuthHeaders(): Promise<Record<string, string>> {
   }
 }
 
-import * as tus from 'tus-js-client'
-
-export async function uploadFilesToSupabase(files: File[], sessionId: string): Promise<string[]> {
+export async function uploadFilesToSupabase(
+  files: File[],
+  sessionId: string,
+  onProgress?: (percent: number) => void
+): Promise<string[]> {
   const { data: { session } } = await supabase.auth.getSession()
   if (!session) throw new Error('Not authenticated')
 
   const paths: string[] = []
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  const totalBytes = files.reduce((sum, file) => sum + Math.max(file.size, 1), 0)
+  let completedBytes = 0
+
+  const report = (loadedInCurrent: number) => {
+    const percent = ((completedBytes + loadedInCurrent) / totalBytes) * 100
+    onProgress?.(Math.max(0, Math.min(99, percent)))
+  }
 
   for (const file of files) {
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
@@ -45,6 +55,9 @@ export async function uploadFilesToSupabase(files: File[], sessionId: string): P
           console.error('Upload error:', error)
           reject(new Error(`Upload failed: ${error.message}`))
         },
+        onProgress: (bytesUploaded) => {
+          report(bytesUploaded)
+        },
         onSuccess: () => {
           console.log(`Uploaded ${file.name} to ${path}`)
           resolve()
@@ -59,9 +72,12 @@ export async function uploadFilesToSupabase(files: File[], sessionId: string): P
       })
     })
 
+    completedBytes += Math.max(file.size, 1)
+    report(0)
     paths.push(path)
   }
 
+  onProgress?.(100)
   return paths
 }
 
