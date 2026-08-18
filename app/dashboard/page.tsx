@@ -26,10 +26,25 @@ export default function Dashboard() {
   const [reflectionReport, setReflectionReport] = useState<string | null>(null)
   const [reflectionError, setReflectionError] = useState('')
 
+  const [subscriptionActive, setSubscriptionActive] = useState(true)
+  const [checkingSubscription, setCheckingSubscription] = useState(true)
+
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) {
         window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`
+        return
+      }
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sessions/subscription-status`, {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        })
+        const data = await res.json()
+        setSubscriptionActive(data.active)
+      } catch {
+        setSubscriptionActive(true)
+      } finally {
+        setCheckingSubscription(false)
       }
     })
   }, [])
@@ -208,6 +223,23 @@ export default function Dashboard() {
 
           {/* Workspace */}
           <section className="lg:col-span-8">
+            {checkingSubscription ? (
+              <div className="flex min-h-[36rem] items-center justify-center rounded-xl border border-[#E8E2D8] bg-white">
+                <p className="text-[14px] text-[#5C544C]">Laden...</p>
+              </div>
+            ) : !subscriptionActive ? (
+              <div className="flex min-h-[36rem] flex-col items-center justify-center rounded-xl border border-[#E8E2D8] bg-white px-6 text-center">
+                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#7A3A42]/10 text-[#7A3A42]">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
+                </span>
+                <p className="text-[16px] font-semibold tracking-[-0.02em] text-[#141210]">Je abonnement is niet actief</p>
+                <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[#5C544C]">
+                  Neem contact op met UNLP om je toegang te herstellen.
+                </p>
+              </div>
+            ) : (
             <div className="overflow-hidden rounded-xl border border-[#E8E2D8] bg-white shadow-[0_1px_2px_rgba(20,18,16,0.04),0_8px_24px_rgba(20,18,16,0.04)] lg:min-h-[36rem]">
               <div className="border-b border-[#EFEAE3] px-4 py-3 sm:px-5">
                 <div className="relative flex w-full rounded-lg bg-[#F3EEE4] p-0.5 sm:w-fit">
@@ -503,6 +535,7 @@ export default function Dashboard() {
                 )}
               </div>
             </div>
+            )}
           </section>
         </div>
       </main>
