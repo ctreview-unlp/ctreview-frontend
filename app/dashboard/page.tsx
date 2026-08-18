@@ -27,7 +27,7 @@ export default function Dashboard() {
   const [reflectionError, setReflectionError] = useState('')
 
   const [subscriptionActive, setSubscriptionActive] = useState(true)
-  const [checkingSubscription, setCheckingSubscription] = useState(true)
+  const [checkingSubscription, setCheckingSubscription] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
