@@ -7,42 +7,6 @@ import { uploadFilesToSupabase, createSession, getSessionStatus, evaluateReflect
 type Tab = 'session' | 'reflection'
 type SessionState = 'idle' | 'uploading' | 'processing' | 'complete' | 'failed'
 
-const PROCESSING_STATUS_MESSAGES = [
-  'Opname wordt getranscribeerd...',
-  'Sprekers en beurten worden herkend...',
-  'Coachinterventies worden geanalyseerd...',
-  'Patronen worden geïdentificeerd...',
-  'Competentie 1 wordt beoordeeld...',
-  'Competentie 2 wordt beoordeeld...',
-  'Competentie 3 wordt beoordeeld...',
-  'Competentie 4 wordt beoordeeld...',
-  'Competentie 5 wordt beoordeeld...',
-  'Competentie 6 wordt beoordeeld...',
-  'Competentie 7 wordt beoordeeld...',
-  'Competentie 8 wordt beoordeeld...',
-  'Gedragsobservaties worden samengesteld...',
-  'Sterke punten als coach worden geformuleerd...',
-  'Ontwikkelpunten worden uitgewerkt...',
-  'Praktische aanbevelingen worden opgesteld...',
-  'Beoordelingsrapport wordt gegenereerd...',
-]
-
-const REFLECTION_STATUS_MESSAGES = [
-  'Reflectietekst wordt gelezen...',
-  'Relevante EMCC-competenties worden herkend...',
-  'Patronen in de reflectie worden geïdentificeerd...',
-  'Competentie 1 wordt beoordeeld...',
-  'Competentie 2 wordt beoordeeld...',
-  'Competentie 3 wordt beoordeeld...',
-  'Competentie 4 wordt beoordeeld...',
-  'Competentie 5 wordt beoordeeld...',
-  'Competentie 6 wordt beoordeeld...',
-  'Competentie 7 wordt beoordeeld...',
-  'Competentie 8 wordt beoordeeld...',
-  'Feedback wordt samengesteld...',
-  'Beoordelingsrapport wordt gegenereerd...',
-]
-
 export default function Dashboard() {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -55,51 +19,35 @@ export default function Dashboard() {
   const [reportUrl, setReportUrl] = useState<string | null>(null)
   const [sessionError, setSessionError] = useState('')
   const [uploadProgress, setUploadProgress] = useState<string>('')
-  const [uploadPercent, setUploadPercent] = useState(0)
-  const [processingStatus, setProcessingStatus] = useState(PROCESSING_STATUS_MESSAGES[0])
 
   const [reflectionText, setReflectionText] = useState('')
   const [candidateName, setCandidateName] = useState('')
   const [reflectionLoading, setReflectionLoading] = useState(false)
   const [reflectionReport, setReflectionReport] = useState<string | null>(null)
   const [reflectionError, setReflectionError] = useState('')
-  const [reflectionStatus, setReflectionStatus] = useState(REFLECTION_STATUS_MESSAGES[0])
+
+  const [subscriptionActive, setSubscriptionActive] = useState(true)
+  const [checkingSubscription, setCheckingSubscription] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!session) {
         window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`
+        return
+      }
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sessions/subscription-status`, {
+          headers: { 'Authorization': `Bearer ${session.access_token}` }
+        })
+        const data = await res.json()
+        setSubscriptionActive(data.active)
+      } catch {
+        setSubscriptionActive(true)
+      } finally {
+        setCheckingSubscription(false)
       }
     })
   }, [])
-
-  useEffect(() => {
-    if (sessionState !== 'processing') return
-
-    let index = 0
-    setProcessingStatus(PROCESSING_STATUS_MESSAGES[0])
-
-    const interval = setInterval(() => {
-      index = (index + 1) % PROCESSING_STATUS_MESSAGES.length
-      setProcessingStatus(PROCESSING_STATUS_MESSAGES[index])
-    }, 4500)
-
-    return () => clearInterval(interval)
-  }, [sessionState])
-
-  useEffect(() => {
-    if (!reflectionLoading) return
-
-    let index = 0
-    setReflectionStatus(REFLECTION_STATUS_MESSAGES[0])
-
-    const interval = setInterval(() => {
-      index = (index + 1) % REFLECTION_STATUS_MESSAGES.length
-      setReflectionStatus(REFLECTION_STATUS_MESSAGES[index])
-    }, 3500)
-
-    return () => clearInterval(interval)
-  }, [reflectionLoading])
 
   async function handleSignOut() {
     await supabase.auth.signOut()
@@ -117,15 +65,11 @@ export default function Dashboard() {
     if (files.length === 0) return
     setSessionState('uploading')
     setSessionError('')
-    setUploadPercent(0)
     setUploadProgress('Bestanden uploaden...')
 
     try {
       const sessionId = crypto.randomUUID()
-      const filePaths = await uploadFilesToSupabase(files, sessionId, (percent) => {
-        setUploadPercent(percent)
-      })
-      setUploadPercent(100)
+      const filePaths = await uploadFilesToSupabase(files, sessionId)
       setUploadProgress('Bestanden geüpload. Analyse starten...')
 
       const { session_id } = await createSession({
@@ -135,7 +79,6 @@ export default function Dashboard() {
 
       setSessionState('processing')
       setUploadProgress('')
-      setUploadPercent(0)
 
       const poll = setInterval(async () => {
         const status = await getSessionStatus(session_id)
@@ -153,7 +96,6 @@ export default function Dashboard() {
       setSessionError(e instanceof Error ? e.message : 'Upload mislukt')
       setSessionState('failed')
       setUploadProgress('')
-      setUploadPercent(0)
     }
   }
 
@@ -179,15 +121,11 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#F7F6F3] text-[#141210] antialiased selection:bg-[#7A3A42]/12 selection:text-[#7A3A42]">
-      <nav className="sticky top-0 z-20 flex h-12 items-center justify-between overflow-visible border-b border-[#E8E2D8] bg-white/90 px-5 backdrop-blur-xl sm:px-8 lg:px-10">
-        <div className="flex items-center gap-2.5">
-          <img
-            src="/cr-logo.png?v=2"
-            alt="Coachtribe Review"
-            width={269}
-            height={282}
-            className="h-7 w-auto object-contain"
-          />
+      <nav className="sticky top-0 z-20 flex h-12 items-center justify-between border-b border-[#E8E2D8] bg-white/90 px-5 backdrop-blur-xl sm:px-8 lg:px-10">
+        <div className="flex items-center gap-2">
+          <div className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-[#15233F]">
+            <span className="text-[9px] font-semibold tracking-[0.08em] text-white">CR</span>
+          </div>
           <span className="text-[14px] font-semibold tracking-[-0.02em] text-[#141210]">Coachtribe Review</span>
         </div>
         <button
@@ -285,6 +223,23 @@ export default function Dashboard() {
 
           {/* Workspace */}
           <section className="lg:col-span-8">
+            {checkingSubscription ? (
+              <div className="flex min-h-[36rem] items-center justify-center rounded-xl border border-[#E8E2D8] bg-white">
+                <p className="text-[14px] text-[#5C544C]">Laden...</p>
+              </div>
+            ) : !subscriptionActive ? (
+              <div className="flex min-h-[36rem] flex-col items-center justify-center rounded-xl border border-[#E8E2D8] bg-white px-6 text-center">
+                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#7A3A42]/10 text-[#7A3A42]">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
+                </span>
+                <p className="text-[16px] font-semibold tracking-[-0.02em] text-[#141210]">Je abonnement is niet actief</p>
+                <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[#5C544C]">
+                  Neem contact op met UNLP om je toegang te herstellen.
+                </p>
+              </div>
+            ) : (
             <div className="overflow-hidden rounded-xl border border-[#E8E2D8] bg-white shadow-[0_1px_2px_rgba(20,18,16,0.04),0_8px_24px_rgba(20,18,16,0.04)] lg:min-h-[36rem]">
               <div className="border-b border-[#EFEAE3] px-4 py-3 sm:px-5">
                 <div className="relative flex w-full rounded-lg bg-[#F3EEE4] p-0.5 sm:w-fit">
@@ -424,19 +379,11 @@ export default function Dashboard() {
 
                     {sessionState === 'uploading' && (
                       <div className="rounded-xl border border-[#E8E2D8] bg-white px-4 py-4 shadow-[0_1px_2px_rgba(20,18,16,0.03)]">
-                        <div className="mb-3 flex items-baseline justify-between gap-3">
-                          <p className="text-[14px] font-semibold tracking-[-0.015em] text-[#141210]">
-                            {uploadProgress || 'Uploaden...'}
-                          </p>
-                          <p className="text-[12px] font-medium tabular-nums text-[#5C544C]">
-                            {Math.round(uploadPercent)}%
-                          </p>
-                        </div>
-                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#EFEAE3]">
-                          <div
-                            className="h-1.5 rounded-full bg-[#7A3A42] transition-[width] duration-200 ease-out"
-                            style={{ width: `${Math.max(2, uploadPercent)}%` }}
-                          />
+                        <p className="mb-3 text-[14px] font-semibold tracking-[-0.015em] text-[#141210]">
+                          {uploadProgress || 'Uploaden...'}
+                        </p>
+                        <div className="h-1 w-full overflow-hidden rounded-full bg-[#EFEAE3]">
+                          <div className="h-1 animate-pulse rounded-full bg-[#7A3A42]" style={{ width: '30%' }} />
                         </div>
                         <p className="mt-3 text-[13px] leading-relaxed text-[#5C544C]">
                           Je bestand wordt direct naar beveiligde opslag geüpload...
@@ -449,17 +396,13 @@ export default function Dashboard() {
                         <p className="mb-3 text-[14px] font-semibold tracking-[-0.015em] text-[#141210]">
                           Bezig met verwerken — dit duurt 15–30 minuten...
                         </p>
-                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#EFEAE3]">
-                          <div className="progress-indeterminate h-1.5 rounded-full bg-[#7A3A42]" />
+                        <div className="h-1 w-full overflow-hidden rounded-full bg-[#EFEAE3]">
+                          <div className="h-1 animate-pulse rounded-full bg-[#7A3A42]" style={{ width: '60%' }} />
                         </div>
-                        <p className="mt-3 text-[13px] leading-relaxed text-[#5C544C] transition-opacity duration-300">
-                          {processingStatus}
+                        <p className="mt-3 text-[13px] leading-relaxed text-[#5C544C]">
+                          Transcriberen en beoordelen van je gesprek aan de hand van alle 8 EMCC-competenties.
+                          {email && " Je ontvangt een e-mail wanneer je rapport klaar is."}
                         </p>
-                        {email && (
-                          <p className="mt-1.5 text-[12px] leading-relaxed text-[#8A837A]">
-                            Je ontvangt een e-mail wanneer je rapport klaar is.
-                          </p>
-                        )}
                       </div>
                     )}
 
@@ -545,11 +488,11 @@ export default function Dashboard() {
 
                     {reflectionLoading && (
                       <div className="mt-3 rounded-xl border border-[#E8E2D8] bg-white px-4 py-4 shadow-[0_1px_2px_rgba(20,18,16,0.03)]">
-                        <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-[#EFEAE3]">
-                          <div className="progress-indeterminate h-1.5 rounded-full bg-[#7A3A42]" />
+                        <div className="mb-3 h-1 w-full overflow-hidden rounded-full bg-[#EFEAE3]">
+                          <div className="h-1 animate-pulse rounded-full bg-[#7A3A42]" style={{ width: '70%' }} />
                         </div>
                         <p className="text-center text-[13px] leading-relaxed text-[#5C544C]">
-                          {reflectionStatus}
+                          Je reflectie wordt beoordeeld aan de hand van het EMCC-kader...
                         </p>
                       </div>
                     )}
@@ -591,6 +534,7 @@ export default function Dashboard() {
                 )}
               </div>
             </div>
+            )}
           </section>
         </div>
       </main>
