@@ -32,6 +32,14 @@ export default function AdminPanel() {
   const [promptSaving, setPromptSaving] = useState(false)
   const [promptSaved, setPromptSaved] = useState(false)
 
+  const [sessionPromptSettings, setSessionPromptSettings] = useState({
+    general_instructions: '',
+    assessment_criteria: '',
+    report_structure: '',
+  })
+  const [sessionPromptSaving, setSessionPromptSaving] = useState(false)
+  const [sessionPromptSaved, setSessionPromptSaved] = useState(false)
+
   const [modal, setModal] = useState<{ title: string; content: string } | null>(null)
 
   useEffect(() => {
@@ -80,9 +88,26 @@ export default function AdminPanel() {
     }
   }
 
+  async function fetchSessionPromptSettings() {
+    try {
+      const headers = await getAuthHeaders()
+      const res = await fetch(`${API_URL}/admin/session-prompt-settings`, { headers })
+      if (!res.ok) throw new Error('Failed to fetch session prompt settings')
+      const data = await res.json()
+      setSessionPromptSettings({
+        general_instructions: data.general_instructions || '',
+        assessment_criteria: data.assessment_criteria || '',
+        report_structure: data.report_structure || '',
+      })
+    } catch (e: unknown) {
+      console.error(e)
+    }
+  }
+
   useEffect(() => {
     if (tab === 'prompt-settings') {
       fetchPromptSettings()
+      fetchSessionPromptSettings()
     } else {
       fetchData(tab as 'users' | 'reports' | 'sessions')
     }
@@ -109,13 +134,46 @@ export default function AdminPanel() {
   }
 
   async function resetPromptSettings() {
-    if (!confirm('Reset to default prompt? This will overwrite your current settings.')) return
+    if (!confirm('Reset reflection prompt to default? This will overwrite your current settings.')) return
     setError('')
     try {
       const headers = await getAuthHeaders()
       await fetch(`${API_URL}/admin/prompt-settings/reset`, { method: 'POST', headers })
       fetchPromptSettings()
       setPromptSaved(false)
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Failed to reset')
+    }
+  }
+
+  async function saveSessionPromptSettings() {
+    setSessionPromptSaving(true)
+    setSessionPromptSaved(false)
+    setError('')
+    try {
+      const headers = await getAuthHeaders()
+      const res = await fetch(`${API_URL}/admin/session-prompt-settings`, {
+        method: 'POST',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify(sessionPromptSettings),
+      })
+      if (!res.ok) throw new Error('Failed to save')
+      setSessionPromptSaved(true)
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Failed to save session prompt settings')
+    } finally {
+      setSessionPromptSaving(false)
+    }
+  }
+
+  async function resetSessionPromptSettings() {
+    if (!confirm('Reset session prompt to default? This will overwrite your current settings.')) return
+    setError('')
+    try {
+      const headers = await getAuthHeaders()
+      await fetch(`${API_URL}/admin/session-prompt-settings/reset`, { method: 'POST', headers })
+      fetchSessionPromptSettings()
+      setSessionPromptSaved(false)
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Failed to reset')
     }
@@ -197,7 +255,6 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-[#f8f7f2]">
-      {/* Modal */}
       {modal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[80vh] flex flex-col">
@@ -412,6 +469,8 @@ export default function AdminPanel() {
               Changes are saved to the database and applied immediately to new reports. The original default prompt is always available via Reset.
             </div>
 
+            <h2 className="text-base font-semibold text-gray-900 pt-2">Written reflection</h2>
+
             {[
               {
                 key: 'general_instructions',
@@ -430,7 +489,7 @@ export default function AdminPanel() {
               },
             ].map(({ key, label, description }) => (
               <div key={key} className="bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="text-sm font-semibold text-gray-700 mb-1">{label}</h2>
+                <h3 className="text-sm font-semibold text-gray-700 mb-1">{label}</h3>
                 <p className="text-xs text-gray-400 mb-3">{description}</p>
                 <textarea
                   value={promptSettings[key as keyof typeof promptSettings]}
@@ -447,7 +506,7 @@ export default function AdminPanel() {
                 disabled={promptSaving}
                 className="bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 disabled:opacity-40"
               >
-                {promptSaving ? 'Saving...' : 'Save settings'}
+                {promptSaving ? 'Saving...' : 'Save reflection settings'}
               </button>
               <button
                 onClick={resetPromptSettings}
@@ -457,6 +516,58 @@ export default function AdminPanel() {
               </button>
               {promptSaved && (
                 <p className="text-sm text-green-600">Saved — applied to new reports immediately.</p>
+              )}
+            </div>
+
+            <h2 className="text-base font-semibold text-gray-900 pt-6 border-t border-gray-200 mt-6">
+              Session / video analysis
+            </h2>
+
+            {[
+              {
+                key: 'general_instructions',
+                label: 'General AI instructions',
+                description: 'Tone, language, and general behaviour for session/transcript evaluation.',
+              },
+              {
+                key: 'assessment_criteria',
+                label: 'Assessment criteria and rubrics',
+                description: 'EMCC competencies, VI indicators, and level calibration for session analysis.',
+              },
+              {
+                key: 'report_structure',
+                label: 'Report structure and instructions',
+                description: 'Sprekerlabels, transcript-specific rules, and quality checklist for sessions.',
+              },
+            ].map(({ key, label, description }) => (
+              <div key={`session-${key}`} className="bg-white rounded-xl border border-gray-200 p-6">
+                <h3 className="text-sm font-semibold text-gray-700 mb-1">{label}</h3>
+                <p className="text-xs text-gray-400 mb-3">{description}</p>
+                <textarea
+                  value={sessionPromptSettings[key as keyof typeof sessionPromptSettings]}
+                  onChange={e => setSessionPromptSettings(prev => ({ ...prev, [key]: e.target.value }))}
+                  rows={14}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-xs font-mono text-gray-900 resize-y"
+                />
+              </div>
+            ))}
+
+            <div className="flex items-center gap-4">
+              <button
+                onClick={saveSessionPromptSettings}
+                disabled={sessionPromptSaving}
+                className="bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 disabled:opacity-40"
+              >
+                {sessionPromptSaving ? 'Saving...' : 'Save session settings'}
+              </button>
+              <button
+                onClick={resetSessionPromptSettings}
+                className="text-sm text-gray-400 hover:text-gray-600"
+              >
+                Reset to default
+              </button>
+              {sessionPromptSaved && (
+                <p className="text-sm text-green-600">Saved — applied to new session reports immediately.</p>
               )}
             </div>
           </div>
