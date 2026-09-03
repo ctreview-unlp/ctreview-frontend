@@ -10,7 +10,6 @@
   --ink:#172033;
   --muted:#69758b;
   --gold:#c99a3d;
-  --cream:#f7f1e8;
   --paper:#fffdf9;
   --border:#e7ddcd;
 }
@@ -26,12 +25,8 @@ nav a{text-decoration:none;color:var(--ink);font-size:15px}
 nav .login{border:1px solid var(--navy);padding:12px 18px;border-radius:999px}
 
 .kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.14em;font-size:13px;font-weight:800}
-h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--navy);font-weight:500;letter-spacing:-.02em}
-h1{font-size:60px;line-height:1.03;margin:16px 0 24px}
-h2{font-size:46px;line-height:1.08;margin:14px 0 22px}
-h3{font-size:26px;margin:0 0 10px}
+h1{font-family:Georgia,"Times New Roman",serif;color:var(--navy);font-weight:500;letter-spacing:-.02em;font-size:60px;line-height:1.03;margin:16px 0 24px}
 p{color:var(--muted);line-height:1.78}
-.lead{font-size:18px}
 
 .hero{padding:74px 0 84px;background:linear-gradient(180deg,#fffdf9 0%,#faf5ed 100%)}
 .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:66px;align-items:center}
@@ -44,161 +39,16 @@ p{color:var(--muted);line-height:1.78}
 .photo-tag strong{display:block;color:var(--navy);font-size:18px}
 .photo-tag span{display:block;color:var(--muted);font-size:13px;margin-top:3px}
 
-.section{padding:88px 0}
-.section-soft{background:var(--cream)}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
-.big-quote{font-family:Georgia,"Times New Roman",serif;font-size:32px;line-height:1.35;color:var(--navy);border-left:3px solid var(--gold);padding-left:24px}
-
-.credentials{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:34px}
-.credential{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px;min-height:180px}
-.credential .icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#f4ebdc;color:var(--gold);margin-bottom:16px}
-.credential p{margin:0;font-size:14px;line-height:1.6}
-.credential h3{font-size:22px}
-.subnote{margin-top:22px;color:var(--muted);font-size:15px}
-
-.author-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
-.books-placeholder{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.book{aspect-ratio:3/4;border-radius:12px;background:linear-gradient(180deg,#162c4a,#0d2340);box-shadow:0 16px 36px rgba(13,35,64,.12);padding:18px;color:#fff;display:flex;align-items:flex-end;font-family:Georgia,serif;font-size:18px;line-height:1.2}
-.book:nth-child(2){background:linear-gradient(180deg,#e6d3af,#c99a3d);color:#243046}
-.book:nth-child(3){background:linear-gradient(180deg,#f1ebe0,#d8c9b3);color:#22304a}
-
-.framework{display:grid;grid-template-columns:1fr .9fr;gap:64px;align-items:start}
-.framework-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:30px}
-.framework-card p{margin-bottom:0}
-.disclaimer{margin-top:20px;background:#f4ecdf;border-radius:15px;padding:17px 19px;color:#5e687c;font-size:14px;line-height:1.6}
-
-.cta-wrap{padding:76px 0 88px}
-.cta{background:var(--navy);border-radius:28px;padding:52px 56px;display:flex;justify-content:space-between;gap:40px;align-items:center;color:#fff}
-.cta h2{color:#fff;margin:0 0 10px;font-size:42px}
-.cta p{color:#d8e1ec;margin:0;font-size:17px}
-.cta .btn{margin:0;white-space:nowrap}
-
 footer{padding:28px 0;color:#78849a;font-size:13px}
 .footer-row{display:flex;justify-content:space-between;gap:24px;align-items:center}
 
 @media(max-width:900px){
-  .hero-grid,.two-col,.author-grid,.framework{grid-template-columns:1fr}
-  .credentials{grid-template-columns:1fr 1fr}
+  .hero-grid{grid-template-columns:1fr}
   h1{font-size:48px}
-  h2{font-size:38px}
-  .cta{flex-direction:column;align-items:flex-start}
 }
 @media(max-width:620px){
   nav a:not(.login){display:none}
-  .credentials,.books-placeholder{grid-template-columns:1fr}
 }
-
-/* Real book showcase */
-.author-showcase-section{
-  overflow:hidden;
-}
-.author-grid-refined{
-  grid-template-columns:1.05fr .95fr;
-  align-items:center;
-}
-.book-showcase{
-  position:relative;
-  min-height:560px;
-}
-.book-cover{
-  position:absolute;
-  border-radius:10px;
-  filter:drop-shadow(0 18px 30px rgba(13,35,64,.14));
-}
-.book-cover img{
-  display:block;
-  width:100%;
-  height:auto;
-  border-radius:10px;
-}
-.book-cover-main{
-  width:36%;
-  left:29%;
-  top:3%;
-  z-index:4;
-}
-.book-cover-family{
-  width:28%;
-  left:2%;
-  top:18%;
-  transform:rotate(-5deg);
-  z-index:2;
-}
-.book-cover-coaches{
-  width:34%;
-  right:0;
-  top:16%;
-  transform:rotate(5deg);
-  z-index:3;
-}
-.book-cover-beginners{
-  width:27%;
-  left:10%;
-  bottom:1%;
-  transform:rotate(-2deg);
-  z-index:1;
-}
-.author-copy strong{
-  color:var(--navy);
-}
-@media(max-width:900px){
-  .author-grid-refined{grid-template-columns:1fr}
-  .book-showcase{min-height:520px}
-}
-@media(max-width:620px){
-  .book-showcase{min-height:430px}
-  .book-cover-main{width:42%;left:29%}
-  .book-cover-family{width:32%}
-  .book-cover-coaches{width:37%}
-  .book-cover-beginners{width:31%}
-}
-
-
-.books-composite-wrap{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:520px;
-}
-.books-composite{
-  display:block;
-  width:100%;
-  max-width:650px;
-  height:auto;
-  object-fit:contain;
-}
-@media(max-width:900px){
-  .books-composite-wrap{min-height:auto}
-  .books-composite{max-width:620px}
-}
-
-
-.author-grid-refined{
-  grid-template-columns:.9fr 1.1fr;
-  gap:70px;
-  align-items:start;
-}
-.books-composite-wrap{
-  position:sticky;
-  top:110px;
-  align-self:start;
-  min-height:auto;
-  padding-top:12px;
-}
-.books-composite{
-  max-width:620px;
-}
-.author-copy .lead{
-  margin:0 0 18px;
-}
-.author-copy h2{
-  margin-bottom:24px;
-}
-@media(max-width:900px){
-  .author-grid-refined{grid-template-columns:1fr}
-  .books-composite-wrap{position:static;padding-top:0}
-}
-
 </style>
 </head>
 <body>
@@ -235,109 +85,6 @@ footer{padding:28px 0;color:#78849a;font-size:13px}
         <strong>Dr. Vincent van der Burg</strong>
         <span>Psycholoog · NOBCO/EMCC Master Coach · Coachopleider · Auteur</span>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container two-col">
-    <div>
-      <div class="kicker">De blik achter CoachTribe Review</div>
-      <h2>Ik heb duizenden coachgesprekken gezien, gevoerd en beoordeeld.</h2>
-      <p class="lead">Daarbij gaat het voor mij nooit alleen om welke methode iemand gebruikt of hoeveel modellen een coach kent.</p>
-      <p class="lead">De kern zit in wat er in het gesprek gebeurt. Hoe iemand luistert, intervenieert, contracteert, reflectie stimuleert en ontwikkeling mogelijk maakt.</p>
-      <p class="lead">Die manier van kijken vormt de basis van CoachTribe Review.</p>
-    </div>
-    <div class="big-quote">Niet beoordelen om het beoordelen. Wel zichtbaar maken wat een coach zelf moeilijk kan zien.</div>
-  </div>
-</section>
-
-<section class="section section-soft">
-  <div class="container">
-    <div class="kicker">Achtergrond</div>
-    <h2>Vier perspectieven die samenkomen in één beoordeling.</h2>
-
-    <div class="credentials">
-      <div class="credential">
-        <div class="icon">Ψ</div>
-        <h3>Psycholoog</h3>
-        <p>Een gedragspsychologische blik op wat mensen doen, vermijden en nodig hebben om te veranderen.</p>
-      </div>
-      <div class="credential">
-        <div class="icon">◎</div>
-        <h3>Master Coach</h3>
-        <p>NOBCO/EMCC-geaccrediteerd en actief binnen het professionele coachvak.</p>
-      </div>
-      <div class="credential">
-        <div class="icon">▤</div>
-        <h3>Coachopleider</h3>
-        <p>Jarenlange ervaring met het opleiden, begeleiden en beoordelen van professionele coaches.</p>
-      </div>
-      <div class="credential">
-        <div class="icon">✎</div>
-        <h3>Auteur</h3>
-        <p>Meerdere boeken over coaching, NLP, gedragsverandering en persoonlijke ontwikkeling.</p>
-      </div>
-    </div>
-
-    <div class="subnote">Daarnaast actief als supervisor en assessor binnen het professionele coachvak.</div>
-  </div>
-</section>
-
-
-
-
-<section class="section author-showcase-section">
-  <div class="container author-grid author-grid-refined">
-    <div class="books-composite-wrap">
-      <img class="books-composite" src="/images/marketing-96285f020c22.jpg" alt="Boeken van Dr. Vincent van der Burg">
-    </div>
-
-    <div class="author-copy">
-      <div class="kicker">Persoonlijke en professionele ontwikkeling</div>
-      <h2>Mensen helpen zich te ontwikkelen. Dat is eigenlijk de rode draad.</h2>
-
-      <p class="lead">Vanaf mijn twintigste doe ik in verschillende vormen vooral hetzelfde: mensen helpen om zichzelf beter te begrijpen en zich verder te ontwikkelen.</p>
-
-      <p class="lead">Dat doe ik als psycholoog, coach, trainer, opleider en supervisor. Ik promoveerde in de psychologie, richtte UNLP op en leid inmiddels al jarenlang coaches op. Daarnaast ben ik NOBCO/EMCC-geaccrediteerd Master Coach en actief als supervisor en assessor.</p>
-
-      <p class="lead"><strong>En ik schrijf.</strong> Over coaching, NLP, psychologie en persoonlijke ontwikkeling. Inmiddels heb ik meerdere boeken gepubliceerd, steeds met hetzelfde uitgangspunt: complexe kennis vertalen naar iets waar je in de praktijk daadwerkelijk iets aan hebt.</p>
-
-      <p class="lead">Al die ervaring heeft me óók geleerd hoeveel er nog te leren valt. Voor mij hoort dat bij professionaliteit: nieuwsgierig blijven, je eigen aannames ter discussie stellen en openstaan voor feedback, juist als je al langer in het vak zit.</p>
-
-      <p class="lead"><strong>Die houding ligt aan de basis van CoachTribe Review.</strong> Want professionele ontwikkeling houdt niet op bij een diploma of jarenlange ervaring. Soms heb je iemand nodig die met andere ogen naar je werk kijkt.</p>
-    </div>
-  </div>
-</section>
-
-
-
-
-<section class="section section-soft">
-  <div class="container framework">
-    <div>
-      <div class="kicker">Professioneel kader</div>
-      <h2>Geen oordeel over jou. Een scherpe blik op je coaching.</h2>
-      <p class="lead">CoachTribe Review gebruikt de acht professionele coachcompetenties van EMCC als inhoudelijk kader. Daardoor kijkt de analyse verder dan losse technieken of gesprekstips.</p>
-      <p class="lead">Het gaat onder andere om de coachrelatie, het coachcontract, zelfinzicht, leren en ontwikkeling en het faciliteren van groei.</p>
-    </div>
-
-    <div class="framework-card">
-      <h3>Ontwikkelinstrument, geen examen</h3>
-      <p>Het rapport is bedoeld om je professionele ontwikkeling te ondersteunen. Niet om te bepalen of je een “goede” of “slechte” coach bent.</p>
-      <div class="disclaimer">CoachTribe Review is geen formele NOBCO- of EMCC-beoordeling en vervangt geen officiële accreditatie of supervisie.</div>
-    </div>
-  </div>
-</section>
-
-<section class="cta-wrap">
-  <div class="container">
-    <div class="cta">
-      <div>
-        <h2>Ontwikkeling begint met zien wat je nu nog niet ziet.</h2>
-        <p>Laat je coachgesprek analyseren en ontdek wat al sterk is en waar je volgende stap ligt.</p>
-      </div>
-      <a class="btn" href="https://coachtribe.nl/coachtribe-review/">Start je eerste review →</a>
     </div>
   </div>
 </section>
