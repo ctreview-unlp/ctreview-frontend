@@ -1,26 +1,186 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Voor wie is CoachTribe Review? — CoachTribe Review</title><style>
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voor wie is CoachTribe Review? — CoachTribe Review</title>
+<style>
 :root{--navy:#0d2340;--gold:#c99a3d;--cream:#f7f1e8;--paper:#fffdf9;--ink:#172033;--muted:#68758c;--border:#e7ddcd}
 *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,Arial,sans-serif}
 .container{width:min(1080px,92%);margin:0 auto} header{border-bottom:1px solid var(--border);background:#fff}
 .nav{height:82px;display:flex;justify-content:space-between;align-items:center}.brand{font-weight:800;color:var(--navy);font-size:20px}
 nav{display:flex;gap:24px;align-items:center} nav a{text-decoration:none;color:var(--ink);font-size:14px}
-.login{border:1px solid var(--navy);border-radius:999px;padding:10px 16px}.hero{padding:68px 0;background:linear-gradient(180deg,#fffdf9,#faf5ed)}
-h1,h2{font-family:Georgia,serif;color:var(--navy);font-weight:500}h1{font-size:52px;line-height:1.05;margin:0 0 18px}
-h2{font-size:34px;margin:36px 0 12px}.hero p,.content p,.content li{color:var(--muted);line-height:1.75;font-size:16px}
-.content{max-width:850px;margin:0 auto;padding:70px 0}.notice{background:var(--cream);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-top:24px}
-details{border-bottom:1px solid var(--border);padding:20px 0}summary{font-weight:800;cursor:pointer;color:var(--navy)}
-.report-card{border:1px solid var(--border);border-radius:20px;padding:28px;background:#fff;box-shadow:0 14px 35px rgba(13,35,64,.06);margin:28px 0}
+.login{border:1px solid var(--navy);border-radius:999px;padding:10px 16px}
+h1,h2{font-family:Georgia,serif;color:var(--navy);font-weight:500}h1{font-size:52px;line-height:1.05;margin:0 0 14px}
+h2{font-size:34px;margin:36px 0 12px}
 footer{padding:30px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
-</style></head><body>
+
+.vw-hero{padding:40px 0 8px;background:#faf5ed}
+.vw-hero-sub{color:var(--muted);line-height:1.65;font-size:17px;margin:0;max-width:none}
+
+.vw-audiences{padding:20px 0 88px;background:var(--paper)}
+.vw-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  column-gap:108px;
+  row-gap:68px;
+}
+.vw-audience{
+  min-width:0;
+  padding:4px 0 8px;
+  transition:transform .22s ease;
+}
+.vw-audience::before{
+  content:"";
+  display:block;
+  width:48px;
+  height:1px;
+  background:#c89a3d;
+  margin:0 0 16px;
+  transition:width .22s ease;
+}
+.vw-audience:hover{transform:translateY(-1px)}
+.vw-audience:hover::before{width:60px}
+.vw-num{
+  display:block;
+  color:#c89a3d;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.18em;
+  line-height:1;
+  margin:0 0 14px;
+}
+.vw-audience h2{
+  font-size:32px;
+  line-height:1.22;
+  letter-spacing:-.02em;
+  margin:0 0 16px;
+  max-width:12em;
+}
+.vw-audience p{
+  margin:0;
+  color:var(--muted);
+  font-size:17px;
+  font-weight:400;
+  line-height:1.7;
+  max-width:46ch;
+}
+
+.vw-close{
+  background:var(--cream);
+  padding:56px 0 64px;
+  text-align:center;
+}
+.vw-close .container{max-width:760px}
+.vw-close h2{
+  font-size:36px;
+  line-height:1.2;
+  letter-spacing:-.02em;
+  margin:0 auto 18px;
+}
+.vw-close p{
+  margin:0 auto 16px;
+  color:var(--muted);
+  font-size:17px;
+  font-weight:400;
+  line-height:1.7;
+  max-width:40em;
+}
+.vw-close-end{
+  color:var(--ink);
+  font-weight:500;
+  margin-bottom:26px;
+}
+.vw-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#c89a3d;
+  color:#fff;
+  border:1px solid #c89a3d;
+  border-radius:999px;
+  padding:11px 20px;
+  font-weight:700;
+  font-size:14px;
+  text-decoration:none;
+  white-space:nowrap;
+  margin:0;
+  line-height:1;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .vw-audience,.vw-audience::before{transition:none}
+  .vw-audience:hover{transform:none}
+}
+
+@media(max-width:900px){
+  .vw-grid{column-gap:72px;row-gap:88px}
+  .vw-audience h2{font-size:30px}
+  .vw-close h2{font-size:32px}
+}
+@media(max-width:680px){
+  .vw-hero{padding:32px 0 6px}
+  .vw-hero h1{font-size:36px}
+  .vw-audiences{padding:16px 0 56px}
+  .vw-grid{grid-template-columns:1fr;row-gap:64px}
+  .vw-audience{padding:0}
+  .vw-audience h2{font-size:28px;max-width:none}
+  .vw-audience p,.vw-close p{max-width:none}
+  .vw-close{padding:44px 0 52px}
+  .vw-close h2{font-size:28px}
+  .vw-close p{max-width:none;padding:0 4px}
+  .vw-cta{white-space:normal;text-align:center;max-width:100%}
+}
+</style>
+</head>
+<body>
 <header><div class="container nav"><a class="brand" href="/site/index.html" style="text-decoration:none;color:inherit">CoachTribe Review</a><nav>
 <a href="/site/index.html">Home</a><a href="/site/voor-wie.html">Voor wie</a><a href="/site/voorbeeldrapport.html">Voorbeeldrapport</a><a href="/site/over.html">Over</a><a href="/site/faq.html">FAQ</a>
 <a href="https://coachtribe.nl/coachtribe-review/" style="display:inline-flex;align-items:center;justify-content:center;background:#c89a3d;color:#fff;border:1px solid #c89a3d;border-radius:999px;padding:11px 20px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;margin:0;line-height:1;">Word lid</a><a class="login" href="/login">Inloggen</a></nav></div></header>
-<section class="hero"><div class="container"><h1>Voor wie is CoachTribe Review?</h1><p>Voor coaches die hun eigen handelen serieus willen blijven onderzoeken.</p></div></section>
-<main class="container"><div class="content">
-<h2>Professionele coaches</h2><p>Voor coaches die veel gesprekken voeren en een professionele tweede blik willen op hun werk.</p>
-<h2>Coaches in opleiding</h2><p>Gebruik je eigen gesprekken als bron voor reflectie en ontwikkeling.</p>
-<h2>Coaches die zich voorbereiden op assessment</h2><p>De feedback is gebaseerd op professionele coachcompetenties. Het rapport is geen officiële accreditatie of formele EMCC-beoordeling.</p>
-<h2>Ervaren coaches</h2><p>Juist wanneer je al lang coacht, kunnen vaste patronen minder zichtbaar worden. Een externe analyse kan nieuwe vragen oproepen.</p>
-<div class="notice"><strong>Belangrijk:</strong> CoachTribe Review ondersteunt professionele reflectie. Het vervangt geen formele beoordeling door een opleider, supervisor, NOBCO of EMCC.</div>
-</div></main>
-<footer><div class="container">© 2026 CoachTribe Review</div></footer></body></html>
+
+<section class="vw-hero">
+  <div class="container">
+    <h1>Voor wie is CoachTribe Review?</h1>
+    <p class="vw-hero-sub">Voor coaches die hun eigen handelen serieus willen blijven onderzoeken.</p>
+  </div>
+</section>
+
+<main>
+  <section class="vw-audiences">
+    <div class="container vw-grid">
+      <article class="vw-audience">
+        <span class="vw-num">01</span>
+        <h2>Coaches in opleiding</h2>
+        <p>Je leert coachen vooral door het te dóén. Een analyse van je eigen sessie laat zien wat je al sterk doet en waar je nog kunt groeien.</p>
+      </article>
+      <article class="vw-audience">
+        <span class="vw-num">02</span>
+        <h2>Professionele coaches</h2>
+        <p>Hoe vaak kijkt er nog iemand met je mee? CoachTribe Review geeft je een professionele tweede blik op je sessies, zodat je gericht kunt blijven ontwikkelen.</p>
+      </article>
+      <article class="vw-audience">
+        <span class="vw-num">03</span>
+        <h2>Ervaren coaches</h2>
+        <p>Ervaring brengt ook vaste patronen met zich mee. Een nieuwe blik op je eigen werk kan zichtbaar maken wat je zelf niet meer opmerkt.</p>
+      </article>
+      <article class="vw-audience">
+        <span class="vw-num">04</span>
+        <h2>Voorbereiden op een assessment</h2>
+        <p>Ontdek hoe jouw coaching zich verhoudt tot professionele coachcompetenties en waar je nog gericht kunt oefenen voor een assessment.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="vw-close">
+    <div class="container">
+      <h2>Je hoeft niet te wachten tot iemand met je meekijkt</h2>
+      <p>Na een coachopleiding verdwijnen feedbackmomenten vaak snel. Supervisie is waardevol, maar doe je niet na ieder gesprek. Met CoachTribe Review kun je zo vaak als je wilt je eigen sessies laten analyseren aan de hand van professionele coachcompetenties.</p>
+      <p class="vw-close-end">Niet om te bewijzen hoe goed je bent, maar om te blijven ontdekken waar je beter kunt worden.</p>
+      <a class="vw-cta" href="https://coachtribe.nl/coachtribe-review/">Laat mijn coachsessie beoordelen</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container">© 2026 CoachTribe Review</div></footer>
+</body>
+</html>
