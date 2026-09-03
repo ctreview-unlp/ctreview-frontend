@@ -68,7 +68,7 @@ export default function Dashboard() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session) {
-        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`
+        window.location.href = '/'
       }
     })
   }, [])
@@ -103,7 +103,7 @@ export default function Dashboard() {
 
   async function handleSignOut() {
     await supabase.auth.signOut()
-    window.location.href = '/login'
+    window.location.href = '/'
   }
 
   function handleDrop(e: React.DragEvent) {
