@@ -29,7 +29,7 @@ export default function LoginPage() {
 
   async function handleResetPassword() {
     if (!email) {
-      setError('Enter your email address above first.')
+      setError('Vul eerst je e-mailadres hierboven in.')
       return
     }
     setResetLoading(true)
@@ -55,23 +55,23 @@ export default function LoginPage() {
           <span className="font-semibold text-gray-900">Coachtribe Review</span>
         </div>
 
-        <h1 className="text-xl font-semibold text-gray-900 mb-1">Welcome back</h1>
-        <p className="text-sm text-gray-500 mb-6">Sign in to your account</p>
+        <h1 className="text-xl font-semibold text-gray-900 mb-1">Welkom terug</h1>
+        <p className="text-sm text-gray-500 mb-6">Log in op je account</p>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
             <input
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
               className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
-              placeholder="you@example.com"
+              placeholder="jij@voorbeeld.nl"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Wachtwoord</label>
             <input
               type="password"
               value={password}
@@ -85,7 +85,7 @@ export default function LoginPage() {
           {error && <p className="text-sm text-red-500">{error}</p>}
           {resetSent && (
             <p className="text-sm text-green-600">
-              Password reset email sent. Check your inbox.
+              E-mail voor wachtwoordherstel verstuurd. Controleer je inbox.
             </p>
           )}
 
@@ -94,7 +94,7 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full bg-black text-white rounded-lg py-2 text-sm font-medium hover:bg-gray-800 disabled:opacity-50"
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading ? 'Bezig met inloggen...' : 'Inloggen'}
           </button>
         </form>
 
@@ -103,7 +103,7 @@ export default function LoginPage() {
           disabled={resetLoading}
           className="mt-4 w-full text-sm text-gray-400 hover:text-gray-600 disabled:opacity-50"
         >
-          {resetLoading ? 'Sending...' : 'Forgot password?'}
+          {resetLoading ? 'Bezig met versturen...' : 'Wachtwoord vergeten?'}
         </button>
       </div>
     </div>
