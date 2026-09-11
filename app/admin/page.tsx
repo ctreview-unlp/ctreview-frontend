@@ -45,7 +45,7 @@ export default function AdminPanel() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session) {
-        window.location.href = '/'
+        window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`
       }
     })
   }, [])
@@ -56,10 +56,6 @@ export default function AdminPanel() {
     try {
       const headers = await getAuthHeaders()
       const res = await fetch(`${API_URL}/admin/${t}`, { headers })
-      if (res.status === 403) {
-        setError('Je hebt geen toegang tot het beheerpaneel.')
-        return
-      }
       if (!res.ok) throw new Error('Access denied or fetch failed')
       const data = await res.json()
       if (t === 'users') setUsers(data.users)
@@ -78,10 +74,6 @@ export default function AdminPanel() {
     try {
       const headers = await getAuthHeaders()
       const res = await fetch(`${API_URL}/admin/prompt-settings`, { headers })
-      if (res.status === 403) {
-        setError('Je hebt geen toegang tot het beheerpaneel.')
-        return
-      }
       if (!res.ok) throw new Error('Failed to fetch prompt settings')
       const data = await res.json()
       setPromptSettings({
