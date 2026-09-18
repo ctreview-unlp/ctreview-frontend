@@ -389,7 +389,26 @@ export default function Dashboard() {
                               {files.length > 1 ? 'Geselecteerde bestanden' : 'Geselecteerd bestand'}
                             </p>
                             {files.map((f, i) => (
-                              <p key={`${f.name}-${f.size}-${i}`} className="text-[14px] font-semibold tracking-[-0.015em] text-[#141210]">{f.name}</p>
+                              <div
+                                key={`${f.name}-${f.size}-${i}`}
+                                className="flex items-center justify-center gap-2"
+                              >
+                                <p className="text-[14px] font-semibold tracking-[-0.015em] text-[#141210]">{f.name}</p>
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    setFiles(prev => prev.filter((_, idx) => idx !== i))
+                                  }}
+                                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#8A837A] transition-colors duration-150 hover:bg-[#7A3A42]/10 hover:text-[#7A3A42]"
+                                  aria-label={`Verwijder ${f.name}`}
+                                >
+                                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                  </svg>
+                                </button>
+                              </div>
                             ))}
                             <p className="mt-2 text-[13px] text-[#5C544C]">Klik om meer bestanden toe te voegen</p>
                           </div>
