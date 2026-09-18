@@ -409,7 +409,6 @@ export default function Dashboard() {
                                 </button>
                               </div>
                             ))}
-                            <p className="mt-2 text-[13px] text-[#5C544C]">Klik om een ander bestand te kiezen</p>
                           </div>
                         ) : (
                           <div className="text-center">
