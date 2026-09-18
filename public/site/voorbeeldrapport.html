@@ -36,6 +36,9 @@ img{max-width:100%;display:block}
 .site-header{position:sticky;top:0;z-index:20;background:rgba(255,253,249,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(229,220,205,.8)}
 .nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .brand{font-weight:800;color:var(--navy);font-size:19px;text-decoration:none}
+.header-logo{display:block;height:104px;width:auto;max-width:560px;object-fit:contain;margin:-27px 0}
+@media(max-width:900px){.header-logo{height:88px;max-width:430px;margin:-20px 0}}
+@media(max-width:620px){.header-logo{height:68px;max-width:300px;margin:-12px 0}}
 .nav-links{display:flex;gap:26px;align-items:center;font-size:14px}
 .nav-links a{text-decoration:none;color:var(--ink)}
 .nav-links a:hover{color:var(--gold)}
@@ -152,7 +155,7 @@ footer{padding:32px 0 44px;color:var(--muted);font-size:13px;border-top:1px soli
 
 <header class="site-header">
   <div class="wide nav">
-    <a class="brand" href="/site/index.html" aria-label="CoachTribe Review"><img src="/images/marketing-2d04bbf0c150.png" alt="CoachTribe Review" style="height:26px;width:auto;object-fit:contain;display:block"></a>
+    <a class="brand" href="/site/index.html" aria-label="CoachTribe Review"><img src="/images/marketing-2d04bbf0c150.png" alt="CoachTribe Review" class="header-logo"></a>
     <nav class="nav-links">
       <a href="/site/index.html">Home</a>
       <a href="/site/voor-wie.html">Voor wie</a>

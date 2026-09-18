@@ -23,6 +23,9 @@ header{background:#fff;border-bottom:1px solid var(--border)}
 nav{display:flex;align-items:center;gap:26px}
 nav a{text-decoration:none;color:var(--ink);font-size:15px}
 nav .login{border:1px solid var(--navy);padding:12px 18px;border-radius:999px}
+.header-logo{display:block;height:104px;width:auto;max-width:560px;object-fit:contain;margin:-27px 0}
+@media(max-width:900px){.header-logo{height:88px;max-width:430px;margin:-20px 0}}
+@media(max-width:620px){.header-logo{height:68px;max-width:300px;margin:-12px 0}}
 
 .kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.14em;font-size:13px;font-weight:800}
 h1{font-family:Georgia,"Times New Roman",serif;color:var(--navy);font-weight:500;letter-spacing:-.02em;font-size:60px;line-height:1.03;margin:16px 0 24px}
@@ -55,7 +58,7 @@ footer{padding:28px 0;color:#78849a;font-size:13px}
 
 <header>
   <div class="container nav">
-    <a class="brand" href="/site/index.html" style="text-decoration:none;color:inherit">CoachTribe Review</a>
+    <a class="brand" href="/site/index.html" aria-label="CoachTribe Review"><img src="/images/marketing-2d04bbf0c150.png" alt="CoachTribe Review" class="header-logo"></a>
     <nav>
       <a href="/site/index.html">Home</a>
       <a href="/site/voor-wie.html">Voor wie</a>
