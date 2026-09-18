@@ -363,12 +363,11 @@ export default function Dashboard() {
                         ref={fileInputRef}
                         type="file"
                         accept=".mp3,.m4a,.wav,.mp4,.mov"
-                        multiple
                         className="sr-only"
                         onChange={e => {
                           const list = e.target.files
                           if (list && list.length > 0) {
-                            setFiles(prev => [...prev, ...Array.from(list)])
+                            setFiles([list[0]])
                           }
                           e.target.value = ''
                         }}
@@ -386,7 +385,7 @@ export default function Dashboard() {
                         {files.length > 0 ? (
                           <div className="text-center">
                             <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#7A3A42]">
-                              {files.length > 1 ? 'Geselecteerde bestanden' : 'Geselecteerd bestand'}
+                              Geselecteerd bestand
                             </p>
                             {files.map((f, i) => (
                               <div
@@ -410,7 +409,7 @@ export default function Dashboard() {
                                 </button>
                               </div>
                             ))}
-                            <p className="mt-2 text-[13px] text-[#5C544C]">Klik om meer bestanden toe te voegen</p>
+                            <p className="mt-2 text-[13px] text-[#5C544C]">Klik om een ander bestand te kiezen</p>
                           </div>
                         ) : (
                           <div className="text-center">
