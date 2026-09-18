@@ -3,6 +3,15 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/app/lib/supabase'
 
+function translateAuthError(message: string): string {
+  const translations: Record<string, string> = {
+    'Password should be at least 6 characters': 'Wachtwoord moet minimaal 6 tekens bevatten.',
+    'New password should be different from the old password': 'Nieuw wachtwoord moet afwijken van het oude wachtwoord.',
+    'Auth session missing!': 'Je sessie is verlopen. Vraag een nieuwe link voor wachtwoordherstel aan.',
+  }
+  return translations[message] || 'Er is iets misgegaan. Probeer het opnieuw.'
+}
+
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -13,14 +22,14 @@ export default function ResetPasswordPage() {
   async function handleReset(e: React.FormEvent) {
     e.preventDefault()
     if (password !== confirm) {
-      setError('Passwords do not match.')
+      setError('Wachtwoorden komen niet overeen.')
       return
     }
     setLoading(true)
     setError('')
     const { error } = await supabase.auth.updateUser({ password })
     if (error) {
-      setError(error.message)
+      setError(translateAuthError(error.message))
     } else {
       setDone(true)
       setTimeout(() => { window.location.href = '/dashboard' }, 2000)
@@ -38,15 +47,15 @@ export default function ResetPasswordPage() {
           <span className="font-semibold text-gray-900">Coachtribe Review</span>
         </div>
 
-        <h1 className="text-xl font-semibold text-gray-900 mb-1">Set new password</h1>
-        <p className="text-sm text-gray-500 mb-6">Choose a new password for your account.</p>
+        <h1 className="text-xl font-semibold text-gray-900 mb-1">Nieuw wachtwoord instellen</h1>
+        <p className="text-sm text-gray-500 mb-6">Kies een nieuw wachtwoord voor je account.</p>
 
         {done ? (
-          <p className="text-sm text-green-600">Password updated. Redirecting...</p>
+          <p className="text-sm text-green-600">Wachtwoord bijgewerkt. Je wordt doorgestuurd...</p>
         ) : (
           <form onSubmit={handleReset} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">New password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Nieuw wachtwoord</label>
               <input
                 type="password"
                 value={password}
@@ -57,7 +66,7 @@ export default function ResetPasswordPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Confirm password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Bevestig wachtwoord</label>
               <input
                 type="password"
                 value={confirm}
@@ -75,7 +84,7 @@ export default function ResetPasswordPage() {
               disabled={loading}
               className="w-full bg-black text-white rounded-lg py-2 text-sm font-medium hover:bg-gray-800 disabled:opacity-50"
             >
-              {loading ? 'Updating...' : 'Update password'}
+              {loading ? 'Bezig met bijwerken...' : 'Wachtwoord bijwerken'}
             </button>
           </form>
         )}
