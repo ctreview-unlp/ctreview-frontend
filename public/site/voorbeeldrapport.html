@@ -3,13 +3,530 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0; url=/site/index.html">
-<meta name="robots" content="noindex, nofollow">
-<link rel="canonical" href="/site/index.html">
-<title>CoachTribe Review</title>
-<script>location.replace("/site/index.html");</script>
+<title>Voorbeeldrapport — CoachTribe Review</title>
+<meta name="description" content="Bekijk een echt, geanonimiseerd voorbeeldrapport van CoachTribe Review: een analyse van een schriftelijke reflectie en een analyse van een coachsessie.">
+<style>
+:root{
+  --navy:#0b1f3a;
+  --navy-2:#122a4b;
+  --gold:#c89a3d;
+  --gold-2:#e6c878;
+  --wine:#7b3945;
+  --ivory:#f7f2e9;
+  --paper:#fffdf9;
+  --ink:#1d2633;
+  --muted:#667085;
+  --border:#e5dccd;
+  --shadow:0 18px 50px rgba(11,31,58,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+}
+a{color:inherit}
+img{max-width:100%;display:block}
+.container{width:min(880px,calc(100% - 40px));margin:0 auto}
+.wide{width:min(1180px,calc(100% - 40px));margin:0 auto}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,253,249,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(229,220,205,.8)}
+.nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-weight:800;color:var(--navy);font-size:19px;text-decoration:none}
+.nav-links{display:flex;gap:26px;align-items:center;font-size:14px}
+.nav-links a{text-decoration:none;color:var(--ink)}
+.nav-links a:hover{color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:11px 20px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;line-height:1}
+.btn-primary{background:var(--gold);color:#fff;border:1px solid var(--gold)}
+.btn-primary:hover{background:#b88b32}
+.btn-outline{border:1px solid var(--navy);color:var(--navy)}
+@media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+/* hero */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#081629 100%);color:#fff;padding:64px 0 56px}
+.kicker{color:var(--gold-2);font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:44px;line-height:1.12;letter-spacing:-.02em;margin:14px 0 18px;font-weight:500;max-width:16em}
+.hero p{color:#d8e0eb;font-size:17px;line-height:1.7;max-width:640px;margin:0 0 6px}
+.authenticity{display:flex;gap:10px;align-items:flex-start;margin-top:22px;padding:14px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;max-width:640px}
+.authenticity .mark{color:var(--gold);font-weight:800;flex:0 0 auto}
+.authenticity p{color:#cfd8e4;font-size:14px;line-height:1.65;margin:0}
+
+/* switcher */
+.switcher-wrap{margin-top:-30px;position:relative;z-index:5}
+.switcher{display:inline-flex;gap:4px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:5px;box-shadow:var(--shadow)}
+.switch-btn{border:none;background:transparent;padding:11px 20px;border-radius:999px;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit}
+.switch-btn.active{background:var(--navy);color:#fff}
+
+/* report doc */
+.report-shell{padding:52px 0 20px}
+.report-doc{display:none}
+.report-doc.active{display:block}
+.report-cover{border:1px solid var(--border);border-radius:22px;background:#fff;box-shadow:var(--shadow);padding:40px 44px;margin-bottom:8px}
+.report-cover .mini-brand{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;color:var(--navy);letter-spacing:.02em}
+.report-cover .mini-brand .mark{width:26px;height:26px;border:1.3px solid var(--gold);border-radius:7px;display:grid;place-items:center;color:var(--gold);background:var(--navy);font-family:Georgia,serif;font-size:13px}
+.doc-kicker{color:var(--gold);font-weight:800;font-size:12px;letter-spacing:.13em;text-transform:uppercase;margin-top:22px}
+.report-cover h2{font-family:Georgia,serif;font-weight:500;color:var(--navy);font-size:36px;margin:10px 0 10px;letter-spacing:-.02em}
+.report-cover .tagline{color:var(--muted);font-size:16px;margin:0}
+.report-meta{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.report-meta .confidential{font-weight:800;letter-spacing:.06em;color:#9a8a67}
+
+.rsection{padding:38px 0 8px;border-bottom:1px solid var(--border)}
+.rsection:last-of-type{border-bottom:none}
+.rsection-kicker{color:var(--wine);font-weight:800;font-size:12px;letter-spacing:.1em}
+.rsection h3.rtitle{font-family:Georgia,serif;font-weight:500;color:var(--navy);font-size:27px;margin:8px 0 22px;letter-spacing:-.01em}
+
+.callout{border-left:3px solid var(--wine);padding:2px 0 2px 22px;margin:0 0 6px}
+.callout p{color:#3c4658;font-size:16px;line-height:1.75;margin:0}
+
+.point{padding:22px 0;border-top:1px solid var(--border)}
+.point:first-child{border-top:none;padding-top:4px}
+.point h4{font-size:17px;color:var(--navy);margin:0 0 8px;font-weight:700}
+.point blockquote{margin:0 0 10px;font-style:italic;color:#8a7350;font-size:15px;line-height:1.65;border-left:2px solid var(--gold-2);padding-left:14px}
+.point p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.75}
+.point .devnote{margin-top:12px;background:var(--ivory);border-radius:12px;padding:14px 16px}
+.point .devnote b{display:block;color:var(--navy);font-size:12.5px;letter-spacing:.03em;margin-bottom:4px}
+.point .devnote p{color:#5b5240;font-size:15px}
+
+.comp-block{padding:24px 0;border-top:1px solid var(--border)}
+.comp-block:first-child{border-top:none}
+.comp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.comp-head h4{font-size:17px;color:var(--navy);margin:0;font-weight:700;max-width:32em}
+.level-badge{flex:0 0 auto;font-size:12px;font-weight:800;letter-spacing:.03em;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.lvl-beperkt{background:#eef0f3;color:var(--muted)}
+.lvl-foundation{background:#f1e7d5;color:#8f6822}
+.lvl-practitioner{background:var(--navy);color:#fff}
+.comp-block p{color:var(--muted);font-size:15.5px;line-height:1.75;margin:12px 0 0}
+.comp-block .nextstep{margin-top:12px;background:var(--ivory);border-radius:12px;padding:14px 16px}
+.comp-block .nextstep b{display:block;color:var(--navy);font-size:12.5px;letter-spacing:.03em;margin-bottom:4px}
+.comp-block .nextstep p{color:#5b5240;font-size:15px;margin:0}
+
+/* competency profile table */
+.profile-note{color:var(--muted);font-size:15px;line-height:1.7;margin:0 0 22px}
+.profile-table{display:grid;grid-template-columns:1.6fr repeat(5,1fr);row-gap:6px;font-size:12.5px}
+.profile-table .col-head{color:var(--muted);font-weight:700;font-size:11px;letter-spacing:.04em;padding-bottom:10px;text-align:center}
+.profile-table .col-head:first-child{text-align:left}
+.profile-row{display:contents}
+.profile-row .rowlabel{padding:11px 0;font-size:14px;color:var(--ink);font-weight:600;border-top:1px solid var(--border);display:flex;align-items:center}
+.profile-row .cell{border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--wine)}
+@media(max-width:680px){
+  .profile-table{grid-template-columns:1fr}
+  .col-head{display:none}
+  .profile-row{display:block;border-top:1px solid var(--border);padding:12px 0}
+  .profile-row .rowlabel{border-top:none;padding:0 0 8px;font-weight:700}
+  .profile-row .cell{display:none}
+  .profile-row .cell.filled{display:inline-flex;justify-content:flex-start;margin-right:8px}
+  .profile-row .cell.filled::after{content:attr(data-label);font-size:12.5px;color:var(--muted);margin-left:8px;font-weight:600}
+}
+
+.closing{background:var(--ivory);border:1px solid var(--border);border-radius:18px;padding:28px 30px;margin:36px 0 28px}
+.closing h4{font-family:Georgia,serif;font-weight:500;color:var(--navy);font-size:21px;margin:0 0 12px}
+.closing p{color:#5b5240;font-size:15.5px;line-height:1.75;margin:0}
+
+.disclaimer{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 20px}
+.practical{border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:44px}
+.practical b{display:block;color:var(--navy);font-size:13px;margin-bottom:6px}
+.practical p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.65}
+
+/* final cta */
+.final-cta-section{padding:20px 0 80px}
+.final-cta{background:var(--navy);color:#fff;border-radius:26px;padding:46px 48px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.final-cta h2{font-family:Georgia,serif;font-size:32px;margin:0 0 8px;font-weight:500}
+.final-cta p{color:#d5deea;margin:0;max-width:520px;font-size:15.5px;line-height:1.65}
+
+footer{padding:32px 0 44px;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}
+.footer-grid{display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap}
+
+@media(max-width:680px){
+  .hero h1{font-size:34px}
+  .report-cover{padding:30px 26px}
+  .report-cover h2{font-size:28px}
+  .final-cta{flex-direction:column;align-items:flex-start;padding:34px 30px}
+}
+</style>
 </head>
 <body>
-<p><a href="/site/index.html">Ga naar CoachTribe Review</a></p>
+
+<header class="site-header">
+  <div class="wide nav">
+    <a class="brand" href="/site/index.html" aria-label="CoachTribe Review"><img src="/images/marketing-2d04bbf0c150.png" alt="CoachTribe Review" style="height:26px;width:auto;object-fit:contain;display:block"></a>
+    <nav class="nav-links">
+      <a href="/site/index.html">Home</a>
+      <a href="/site/voor-wie.html">Voor wie</a>
+      <a href="/site/voorbeeldrapport.html">Voorbeeldrapport</a>
+      <a href="/site/over.html">Over</a>
+      <a href="/site/faq.html">FAQ</a>
+      <a class="btn btn-primary" href="https://coachtribe.nl/coachtribe-review/">Word lid</a>
+      <a class="btn btn-outline" href="/login">Inloggen</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wide">
+    <div class="kicker">Voorbeeldrapport</div>
+    <h1>Zie precies wat je terugkrijgt.</h1>
+    <p>Hieronder lees je twee echte CoachTribe Review-rapporten: één analyse van een schriftelijke reflectie en één analyse van een opgenomen coachsessie.</p>
+    <div class="authenticity">
+      <span class="mark">i</span>
+      <p>Dit zijn onbewerkte rapporten uit de echte analyse-pipeline. Alleen de naam van de coach is vervangen door "Robin"; de inhoud, structuur en beoordeling zijn ongewijzigd.</p>
+    </div>
+  </div>
+</section>
+
+<div class="switcher-wrap">
+  <div class="wide" style="display:flex;justify-content:center">
+    <div class="switcher">
+      <button class="switch-btn active" id="btn-reflectie" onclick="showReport('reflectie')">Schriftelijke reflectie</button>
+      <button class="switch-btn" id="btn-sessie" onclick="showReport('sessie')">Coachsessie</button>
+    </div>
+  </div>
+</div>
+
+<section class="report-shell">
+  <div class="container">
+
+    <!-- ============ REPORT 1: SCHRIFTELIJKE REFLECTIE ============ -->
+    <article class="report-doc active" id="doc-reflectie">
+
+      <div class="report-cover">
+        <div class="mini-brand"><img src="/images/marketing-2d04bbf0c150.png" alt="CoachTribe Review" style="height:22px;width:auto;object-fit:contain;display:block"></div>
+        <div class="doc-kicker">EMCC / NOBCO reflectieanalyse</div>
+        <h2>Analyse schriftelijke reflectie</h2>
+        <p class="tagline">Verdiepende feedback op je reflectieverslag.</p>
+        <div class="report-meta">
+          <span>Kandidaat · Robin</span>
+          <span class="confidential">Vertrouwelijk</span>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">01 · Kernbeeld</div>
+        <h3 class="rtitle">Kernbeeld van deze sessie</h3>
+        <div class="callout">
+          <p>Robin, je reflectie laat zien dat je dicht bij jezelf blijft en bereid bent te kijken naar wat er in jou beweegt tijdens een gesprek. Je benoemt helder hoe je resultaatgerichtheid soms spanning creëert tussen jouw behoefte aan uitkomst en het tempo van de coachee. De twee grootste ontwikkelkansen die ik zie zijn: leren onderscheiden wanneer doorvragen helpend is versus wanneer spiegelen meer ruimte biedt, en het verder verdiepen van de bewuste inzet van het Talentenpaspoort als instrument in plaats van als aanleiding voor vragen.</p>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">02 · Sterke punten</div>
+        <h3 class="rtitle">Wat je al sterk doet</h3>
+
+        <div class="point">
+          <h4>Zelfherkenning in het moment</h4>
+          <blockquote>"Ik bleef rustig en vriendelijk, alleen voelde zelf onrust ontstaan toen ik niet kwam met hem waar ik naartoe wilde."</blockquote>
+          <p>Wat opvalt is dat je de eigen onrust niet pas achteraf benoemt, maar dat je beschrijft hoe je die in het gesprek zelf al voelde opkomen. Dit is een relevante vaardigheid voor je ontwikkeling als coach. Bewustzijn van je eigen toestand tijdens het gesprek is een voorwaarde om daar vervolgens iets mee te kunnen doen. Dat je dit herkent, is een goede basis.</p>
+        </div>
+
+        <div class="point">
+          <h4>Verbinding leggen tussen eigen patroon en oorsprong</h4>
+          <blockquote>"De resultaatgerichtheid is ontstaan in mijn jeugd waar alleen de eerste plek telde, bijvoorbeeld bij mijn hobby ponyrijden."</blockquote>
+          <p>Je maakt zelf de stap van gedrag naar achterliggende overtuiging. Dat je dit patroon benoemt én koppelt aan een concrete situatie in het coachgesprek, geeft de reflectie diepte. Het maakt zichtbaar dat je niet alleen het gedrag beschrijft, maar ook de bron ervan onderzoekt.</p>
+        </div>
+
+        <div class="point">
+          <h4>Concrete alternatieve interventie beschreven</h4>
+          <blockquote>"Volgende keer wil ik dan toch confronteren door aan te geven: ik merk dat we wegblijven bij jouw rustgever op een werkdag. Hoe denk je dat dat komt?"</blockquote>
+          <p>Je blijft niet steken bij wat er misging, maar formuleert een praktisch alternatief. Dit laat zien dat je reflectie verbinding maakt met toekomstig handelen. Het is een teken dat de reflectiecyclus niet stopt bij bewustwording, maar doorgaat naar experiment.</p>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">03 · Ontwikkelruimte</div>
+        <h3 class="rtitle">Waar je de meeste winst kunt boeken</h3>
+
+        <div class="point">
+          <h4>Van intentie naar bewust instrumentgebruik</h4>
+          <p>Je beschrijft dat je het Talentenpaspoort wilt inzetten om verbanden te vragen, maar de reflectie laat nog weinig zien van hoe je dat instrument bewust hebt gekozen of hoe het de richting van het gesprek heeft bepaald. Ik ben nieuwsgierig naar wat je specifiek hebt gedaan met het Talentenpaspoort op het moment dat de coachee begon te ontwijken. Welke keuze maakte je toen bewust met dit middel, en welke keuze maakte het middel misschien voor jou? Dat onderscheid helpt je groeien in competentie 7.</p>
+        </div>
+
+        <div class="point">
+          <h4>Wiens doel staat centraal?</h4>
+          <p>Een vraag die ik je wil meegeven: je schrijft herhaaldelijk dat je wilt bereiken dat de coachee pauze neemt op de dag. Ik vraag me af of dit doel ook expliciet van de coachee zelf is, of dat dit meer jouw interpretatie is van wat hij nodig heeft. De coachee gaf aan dat balans een uitdaging is, maar de vertaling naar concrete pauzemomenten op het werk lijkt te komen van jou. Dit is een belangrijk onderscheid in het coachvak. Wanneer het doel meer van de coach is dan van de coachee, kan dat verklaren waarom de coachee lijkt te ontwijken.</p>
+        </div>
+
+        <div class="point">
+          <h4>Spiegelen als vaardigheid verder ontwikkelen</h4>
+          <p>Je noemt spiegelen meerdere keren als de oplossing voor het doorvragen, maar de reflectie beschrijft nog niet wat spiegelen voor jou precies betekent in de praktijk. Is het benoemen van wat je ziet gebeuren? Is het teruggeven van emotie? Is het de stilte laten vallen? Ik nodig je uit om in je volgende reflectie één concrete spiegelinterventie te beschrijven die je hebt uitgeprobeerd, inclusief het effect op de coachee. Zo wordt spiegelen niet alleen een voornemen, maar een te onderzoeken techniek.</p>
+        </div>
+
+        <div class="point">
+          <h4>Zelfinzicht en het risico van psychologiseren richting coachee</h4>
+          <p>Je schrijft dat je de coachee wilt confronteren met het verband tussen zijn ontwijken en zijn zorg voor anderen. Dat is een begrijpelijke gedachte vanuit wat je ziet. Tegelijkertijd is het goed om je af te vragen of dit een conclusie is die de coachee zelf heeft getrokken, of een hypothese van jou. Als je die hypothese te direct inbrengt, bestaat het risico dat je het gesprek stuurt in een richting die meer van jou is dan van hem. Je eigen zelfinzicht op dit punt is krachtig. De volgende stap is om dat zelfinzicht te gebruiken om juist opener te blijven.</p>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">04 · Reflectieniveau</div>
+        <h3 class="rtitle">Onderbouwing per competentie</h3>
+        <p class="profile-note">Hieronder vind je per competentie een toelichting op wat in deze reflectie zichtbaar was, inclusief een concrete volgende stap waar dat inhoudelijk passend is.</p>
+
+        <div class="comp-block">
+          <div class="comp-head">
+            <h4>5. Stelt de coachee in staat inzicht te verkrijgen en te leren</h4>
+            <span class="level-badge lvl-foundation">Foundation</span>
+          </div>
+          <p>De reflectie laat zien dat je gelooft in het leerproces van de coachee en dat je actief doorvraagt. Dit correspondeert met Foundation-indicatoren (VI 15–20): geloven dat anderen zelf het beste leren en actief vragen stellen. Je beschrijft echter nog geen bewuste inzet van een waaier aan vraagtechnieken (VI 55) of het herkennen van patronen bij de coachee en verbanden leggen tussen gevoelens en gedrag (VI 53–54), wat Practitioner-niveau zou markeren. Je noemt spiegelen als toekomstig voornemen, maar het is nog geen beschreven praktijk.</p>
+          <div class="nextstep">
+            <b>Volgende stap</b>
+            <p>Beschrijf in je volgende reflectie een moment waarop je bewust wisselt tussen twee verschillende vraagtechnieken en benoem het effect van die wissel op de coachee. Dat maakt zichtbaar of je een bewuste keuze maakt of reageert vanuit gewoonte.</p>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head">
+            <h4>7. Gebruik van modellen en technieken</h4>
+            <span class="level-badge lvl-foundation">Foundation</span>
+          </div>
+          <p>Je beschrijft dat je het Talentenpaspoort hebt ingezet en dat dit "extra bewustwording" gaf. Dit wijst op Foundation-niveau (VI 27): een aanpak gebaseerd op een model of framework. Practitioner vereist een coherent ontwikkeld model (VI 66) en het bewust inzetten van meerdere tools (VI 67). De reflectie bevat ook bewijs voor competentie 1 (Zelfinzicht), met name het herkennen van een eigen patroon dat het coachproces verstoort (VI 32) — overweeg dit fragment ook onder die competentie op te nemen in je portfolio.</p>
+          <div class="nextstep">
+            <b>Volgende stap</b>
+            <p>Beschrijf bij je volgende inzet van het Talentenpaspoort expliciet: waarom koos je dit instrument op dit moment, wat verwachtte je ervan, en wat deed het daadwerkelijk. Zo ontwikkel je bewuster instrumentgebruik richting Practitioner-niveau.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="closing">
+        <h4>Vertrouw op je ontwikkeling</h4>
+        <p>Robin, het meest urgente punt voor jou nu is de vraag van wiens doel het gesprek eigenlijk is. Je hebt goed zicht op je eigen patronen, maar dat zelfinzicht zal pas volledig renderen als je het ook inzet om je hypothesen over de coachee lichter te dragen. Dat is geen kritiek op je betrokkenheid, juist het tegendeel. Het laat zien hoe serieus je dit vak neemt. Door dit onderscheid scherper te maken, geef je de coachee meer ruimte voor zijn eigen proces, en verlaag je tegelijkertijd de druk op jezelf. Dat is de stap die nu het meeste oplevert.</p>
+      </div>
+
+      <p class="disclaimer">Dit rapport is een ontwikkelingsgerichte analyse van één coachsessie. Het geeft geen volledig beeld van je professionele functioneren als coach.</p>
+
+      <div class="practical">
+        <b>Praktisch punt</b>
+        <p>Er staan meerdere spelfouten in de reflectie die de leesbaarheid beïnvloeden. Lees de tekst vóór inlevering nog eens rustig door, of gebruik een spellingcontrole.</p>
+      </div>
+
+    </article>
+
+    <!-- ============ REPORT 2: COACHSESSIE ============ -->
+    <article class="report-doc" id="doc-sessie">
+
+      <div class="report-cover">
+        <div class="mini-brand"><img src="/images/marketing-f9b46aaed2c6.png" alt="CoachTribe Review — Sessierapport · EMCC/NOBCO-kader" style="height:34px;width:auto;max-width:220px;object-fit:contain;display:block"></div>
+        <h2>Analyse coachsessie</h2>
+        <p class="tagline">Verdiepende feedback op je coachgesprek.</p>
+        <div class="report-meta">
+          <span>Kandidaat · Robin</span>
+          <span class="confidential">Vertrouwelijk</span>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">01 · Kernbeeld</div>
+        <h3 class="rtitle">Kernbeeld van deze sessie</h3>
+        <div class="callout">
+          <p>Dit is een energiek gesprek waarin je een NLP-ankertechniek inzet met duidelijke structuur en warme verbinding. Je sluit goed aan bij de belevingswereld van de cliënt en helpt haar een concreet toekomstbeeld te bouwen. Tegelijk valt op dat je soms aanvult of invult waar vragen meer ruimte zouden laten, en dat de verkenningsfase vrij snel plaatsmaakt voor de techniek. Dit gesprek beweegt zich overwegend op Foundation- tot Practitioner-niveau.</p>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">02 · Sterke punten</div>
+        <h3 class="rtitle">Wat je al sterk doet</h3>
+
+        <div class="point">
+          <h4>Doorvragen op patroon achter het gedrag</h4>
+          <blockquote>Robin: "En laat je dat vaker je keuzes beïnvloeden? Dat zullen anderen dan niet denken?"</blockquote>
+          <p>Vroeg in het gesprek maak je een scherpe verbinding tussen het concrete verhaal over de auto en een onderliggend patroon. Je herkent dat de auto-anekdote meer is dan een losstaand verhaal. Door dit patroon te benoemen en er direct een vraag op te zetten, activeer je bewustwording bij de cliënt. Dit sluit aan op VI 53 — patronen herkennen in het gesprek.</p>
+        </div>
+
+        <div class="point">
+          <h4>Werken met de taal van de cliënt</h4>
+          <blockquote>Cliënt: "Gewoon doen." Robin: "Gewoon doen. En hoe vaker je dat gaat doen, in plaats van die twijfel, kiest voor het gewoon doen."</blockquote>
+          <p>Op meerdere momenten neem je de exacte bewoordingen van de cliënt over en spiegelt die terug. Dit bevestigt eigenaarschap bij de cliënt. Ze herkent haar eigen woorden als fundament voor het actieplan. Het is een teken van echte aandacht voor de klant, in lijn met VI 49.</p>
+        </div>
+
+        <div class="point">
+          <h4>Verbinding met het leerdoel bewust herstellen</h4>
+          <blockquote>Robin: "In hoeverre staat dat in lijn met je leerdoel waarmee je hier als sessie één binnenkwam?"</blockquote>
+          <p>Midden in het gesprek, wanneer het dreigt te blijven hangen bij de auto, breng je de sessie terug naar het grotere kader. Dit is een sterke interventie. Je bewaakt de rode draad zonder het verhaal te verwerpen. Het toont overkoepelend bewustzijn van het coachcontract en de richting van het traject. VI 61 en VI 47 zijn hier van toepassing.</p>
+        </div>
+
+        <div class="point">
+          <h4>Stapsgewijze opbouw van de ankertechniek</h4>
+          <blockquote>Robin: "Je voelt het zelf niet. Oké, dat is helemaal niet erg. Zou ik je willen vragen: bekijk het eens door de ogen van diezelfde eigenschap."</blockquote>
+          <p>Je begeleidt de gestapelde ankeroefening met aandacht voor de ervaring van de cliënt per emotie, inclusief bijsturing wanneer vastberadenheid niet direct toegankelijk is. In plaats van door te drammen pas je de techniek aan op wat de cliënt op dat moment kan bieden. Dit is flexibel en veilig coachen. Het past bij VI 67 — meerdere tools inzetten, en bij VI 49 — gedrag aanpassen aan de toestand van de coachee.</p>
+        </div>
+
+        <div class="point">
+          <h4>Concreet actieplan met commitment</h4>
+          <blockquote>Robin: "Dus KVK aanpassen, een berichtje sturen zodat er een website wordt gemaakt en dan gewoon bedrijven gaan benaderen. Hoe groot is de kans op een schaal van nul tot tien dat jij die eerste stap vandaag of morgen gaat uitvoeren?"</blockquote>
+          <p>Aan het einde van de sessie haal je de cliënt terug van het droombeeld naar een eerste haalbare stap. Je rondt het gesprek af met een concreet, eigen actieplan en toetst de commitment expliciet. Dit is doel- en actiegericht werken op Practitioner-niveau, VI 62.</p>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">03 · Ontwikkelruimte</div>
+        <h3 class="rtitle">Waar je de meeste winst kunt boeken</h3>
+
+        <div class="point">
+          <h4>Invullen waar vragen meer ruimte bieden</h4>
+          <blockquote>Robin: "Dus je stem heeft wel een positieve intentie?" Cliënt: "Ja, dat denk ik wel."</blockquote>
+          <p>Je introduceert hier een interpretatie — de positieve intentie van de stem — voordat de cliënt er zelf op is gekomen. De cliënt bevestigt, maar het is onduidelijk of dit haar eigen inzicht is of jouw suggestie die ze overneemt. Wanneer de coach invult, loopt de cliënt het risico haar eigen ontdekkingsproces over te slaan. Inzichten die van buiten komen beklijven minder goed dan inzichten die van binnenuit ontstaan.</p>
+          <div class="devnote">
+            <b>Ontwikkelrichting</b>
+            <p>Wat zou er gebeuren als je de interpretatie terugdraait naar een vraag? Bijvoorbeeld: "Wat denk jij dat die stem voor je wil?" Zo blijft de regie bij de cliënt.</p>
+          </div>
+        </div>
+
+        <div class="point">
+          <h4>Emotionele diepte vroeg in het gesprek laten liggen</h4>
+          <blockquote>Cliënt: "Maar het is ook weer niet de intentie die ik eigenlijk zelf zou willen leven." Robin: "Wat is voor jou belangrijk op dat soort momenten dat je een keuze maakt?"</blockquote>
+          <p>De cliënt raakt hier iets aan — het verschil tussen leven naar de stem van de ander en leven naar haar eigen wil. Dit is een emotioneel geladen moment. Je stapt er overheen naar een meer cognitieve vraag over keuzegedrag. Het vroegtijdig loslaten van die laag maakt dat de sessie eerder op technieken leunt dan op verdieping.</p>
+          <div class="devnote">
+            <b>Ontwikkelrichting</b>
+            <p>Wat zou je hebben willen vragen als je een moment langer bij die opmerking was gebleven? Wat hoorde je daarin wat je uitnodigde om verder te gaan?</p>
+          </div>
+        </div>
+
+        <div class="point">
+          <h4>Suggestieve taal tijdens de visualisatie</h4>
+          <blockquote>Robin: "Jij weet wat voor jou de juiste keuze is. En je maakt hem. Je doet het gewoon. En je ziet het wel."</blockquote>
+          <p>Tijdens de toekomstvisualisatie neemt je taal een sterk sturende vorm aan. Je vertelt de cliënt niet alleen wat ze ziet, maar ook wat ze voelt en wat ze weet. Dit raakt aan een ethische grens: de coach legt woorden en overtuigingen in de mond van de cliënt in een suggestionele toestand. In een ontspannen, innerlijk gerichte toestand is de cliënt gevoeliger voor suggestie.</p>
+          <div class="devnote">
+            <b>Ontwikkelrichting</b>
+            <p>Hoe zou je dezelfde ruimte kunnen bieden met meer open taal — bijvoorbeeld "merk maar op wat je ziet en voelt" — zodat de cliënt haar eigen film maakt in plaats van jouw beschrijving te volgen?</p>
+          </div>
+        </div>
+
+        <div class="point">
+          <h4>Afsluiting zonder evaluatie van de sessie zelf</h4>
+          <blockquote>Robin: "Dankjewel. Ja. Dat was hem. Oké. Bedankt voor het kijken. Tot de volgende keer."</blockquote>
+          <p>De sessie wordt afgesloten zonder dat je expliciet terugkijkt op wat de cliënt heeft geleerd of ervaren in dit gesprek. Er is geen moment van gezamenlijke evaluatie van de sessie zelf — los van het actieplan. Evalueren van de sessie versterkt het leerproces van de cliënt en biedt de coach waardevolle informatie over wat werkt.</p>
+          <div class="devnote">
+            <b>Ontwikkelrichting</b>
+            <p>Wat zou er veranderen als je aan het einde één vraag stelde zoals: "Wat neem je mee uit deze sessie?" Hoe zou dat de afsluiting verdiepen?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">04 · Competentieprofiel</div>
+        <h3 class="rtitle">Jouw EMCC/NOBCO-profiel in deze sessie</h3>
+        <p class="profile-note">Dit overzicht laat zien welk competentieniveau in deze sessie aantoonbaar zichtbaar was. Een competentie die vanuit één transcript beperkt beoordeelbaar is, wordt niet als onvoldoende aangemerkt.</p>
+
+        <div class="profile-table">
+          <div class="col-head">Competentie</div>
+          <div class="col-head">Beperkt</div>
+          <div class="col-head">Foundation</div>
+          <div class="col-head">Practitioner</div>
+          <div class="col-head">Senior<br>Practitioner</div>
+          <div class="col-head">Master<br>Practitioner</div>
+
+          <div class="profile-row"><div class="rowlabel">1. Zelfinzicht</div><div class="cell filled" data-label="Beperkt"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div></div>
+          <div class="profile-row"><div class="rowlabel">2. Gerichtheid op zelfontwikkeling</div><div class="cell filled" data-label="Beperkt"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div></div>
+          <div class="profile-row"><div class="rowlabel">3. Omgaan met het coachcontract</div><div class="cell"></div><div class="cell filled" data-label="Foundation"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div><div class="cell"></div></div>
+          <div class="profile-row"><div class="rowlabel">4. Vormgeven van de coachrelatie</div><div class="cell"></div><div class="cell"></div><div class="cell filled" data-label="Practitioner"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div></div>
+          <div class="profile-row"><div class="rowlabel">5. Stelt de coachee in staat inzicht te verkrijgen en te leren</div><div class="cell"></div><div class="cell"></div><div class="cell filled" data-label="Practitioner"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div></div>
+          <div class="profile-row"><div class="rowlabel">6. Doel- en actiegerichtheid</div><div class="cell"></div><div class="cell"></div><div class="cell filled" data-label="Practitioner"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div></div>
+          <div class="profile-row"><div class="rowlabel">7. Gebruik van modellen en technieken</div><div class="cell"></div><div class="cell"></div><div class="cell filled" data-label="Practitioner"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div></div>
+          <div class="profile-row"><div class="rowlabel">8. Evalueren</div><div class="cell"></div><div class="cell filled" data-label="Foundation"><span class="dot"></span></div><div class="cell"></div><div class="cell"></div><div class="cell"></div></div>
+        </div>
+      </div>
+
+      <div class="rsection">
+        <div class="rsection-kicker">05 · Verdieping</div>
+        <h3 class="rtitle">Onderbouwing per competentie</h3>
+        <p class="profile-note">Hieronder vind je per competentie een toelichting op wat in deze sessie zichtbaar was, inclusief een concrete volgende stap waar dat inhoudelijk passend is.</p>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>1. Zelfinzicht</h4><span class="level-badge lvl-beperkt">Beperkt beoordeelbaar</span></div>
+          <p>Zelfinzicht is in een transcript structureel beperkt beoordeelbaar. Wat zichtbaar is: je reageert warm en empathisch op de cliënt. Er zijn geen momenten waar eigen psychologische processen het gesprek zichtbaar verstoren of bewust worden gemanaged. Of dit voortkomt uit zelfinzicht of uit routine is niet te bepalen.</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Wat merk jij in jezelf op wanneer een cliënt een patroon beschrijft dat jou persoonlijk raakt? Breng dit in supervisie.</p></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>2. Gerichtheid op zelfontwikkeling</h4><span class="level-badge lvl-beperkt">Beperkt beoordeelbaar</span></div>
+          <p>Ook deze competentie is nauwelijks beoordeelbaar op basis van één transcript. Deelname aan supervisie, bewuste reflectie en het bijhouden van vaardigheden zijn niet zichtbaar in de dialoog zelf.</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Bespreek dit transcript in supervisie, specifiek op de momenten waar je kiest om een techniek in te zetten in plaats van te verdiepen.</p></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>3. Omgaan met het coachcontract</h4><span class="level-badge lvl-foundation">Foundation</span></div>
+          <p>Je vraagt toestemming voor opname en verwijst naar het leerdoel uit sessie één. Dat zijn heldere contractuele handelingen op Foundation-niveau. Er is geen zichtbare aandacht voor ethische grenzen rondom de suggestieve elementen van de techniek, wat bij Practitioner verwacht wordt (VI 42, VI 43).</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Hoe informeer je de cliënt voorafgaand aan technieken als ankeren over de aard en de werking ervan, zodat er sprake is van geïnformeerde instemming?</p></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>4. Vormgeven van de coachrelatie</h4><span class="level-badge lvl-practitioner">Practitioner</span></div>
+          <p>De verbinding met de cliënt is warm en authentiek. Je past je taalgebruik aan aan haar wereld en reageert empathisch op haar emotionele toestand. Dit past bij VI 46 en VI 49. Het vertrouwen in de relatie is zichtbaar door de openheid van de cliënt.</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Oefen met het laten bestaan van stilte na een emotioneel geladen opmerking. Warme verbinding hoeft niet altijd gevuld te worden met een volgende vraag.</p></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>5. Stelt de coachee in staat inzicht te verkrijgen en te leren</h4><span class="level-badge lvl-practitioner">Practitioner</span></div>
+          <p>Je herkent patronen (VI 53) en verbindt gedrag aan achterliggende overtuigingen en herkomst. Je zet een waaier aan technieken in, waaronder reflectieve vragen, visualisatie en ankeren (VI 55). Tegelijk mis je kansen om de cliënt haar eigen inzicht te laten formuleren voordat je samenvat of interpreteert.</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Vraag jezelf bij elk samenvatten af: is dit haar inzicht of mijn interpretatie? Geef haar de kans het zelf onder woorden te brengen.</p></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>6. Doel- en actiegerichtheid</h4><span class="level-badge lvl-practitioner">Practitioner</span></div>
+          <p>Je bouwt toe naar een concreet actieplan met eerste stappen en commitment-check (VI 62). Je helpt de cliënt barrières te benoemen — twijfel, het patroon van hulp inschakelen — en verbindt die aan het actieplan (VI 63). De toekomstvisualisatie ondersteunt de actiegerichtheid.</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Bespreek ook hoe de cliënt om wil gaan met terugval in het oude patroon. Dat maakt het actieplan robuuster.</p></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>7. Gebruik van modellen en technieken</h4><span class="level-badge lvl-practitioner">Practitioner</span></div>
+          <p>Je zet een coherente NLP-techniek in — gestapeld ankeren, visualisatie, toekomstpacing — als herkenbaar geheel (VI 66, VI 67). De techniek sluit aan bij de taal en wereld van de cliënt. De overstap naar de techniek volgt snel op de verkenningsfase; het is de vraag of de probleemanalyse al voldoende was voor Senior Practitioner-niveau (VI 96).</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Hoe besluit je wanneer een techniek het juiste moment heeft? Welk signaal van de cliënt zou jou vertellen dat de verkenning nog niet compleet is?</p></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-head"><h4>8. Evalueren</h4><span class="level-badge lvl-foundation">Foundation</span></div>
+          <p>Je monitort tijdens de techniek actief of de oefening werkt — je vraagt naar de schaal van nul tot tien per ankerstap. Maar er is geen evaluatie van de sessie als geheel, geen expliciete terugblik op wat de cliënt heeft geleerd, en geen formeel feedbackproces zichtbaar (VI 69, VI 70).</p>
+          <div class="nextstep"><b>Volgende stap</b><p>Bouw een vaste afsluitroutine in: één vraag over het leerproces van de cliënt in deze sessie, en één vraag over jouw coachgedrag.</p></div>
+        </div>
+      </div>
+
+      <div class="closing">
+        <h4>Vertrouw op je ontwikkeling</h4>
+        <p>Het meest waardevolle ontwikkelpunt zit in het verschil tussen invullen en uitnodigen. Je bent sterk in het opbouwen van een veilige relatie — de cliënt opent zich snel en gaat mee in de oefeningen. Maar diezelfde warmte maakt je soms geneigd om te snel samen te vatten, in te vullen, of de richting al te benoemen. Juist omdat je zo goed aanvoelt wat de cliënt bedoelt, kun je haar het genoegen doen het zelf te laten zeggen. Dat is geen remming — dat is het meest respectvolle cadeau dat je als coach kunt geven. Zet die kracht nu ook in vóór de samenvatting, niet erna.</p>
+      </div>
+
+      <p class="disclaimer">Dit rapport is een ontwikkelingsgerichte analyse van één coachsessie. Het geeft geen volledig beeld van je professionele functioneren als coach.</p>
+
+      <div class="practical">
+        <b>Praktisch punt</b>
+        <p>De spreektijdverhouding verschuift in de tweede helft van het gesprek duidelijk naar jou. Tijdens de visualisatiefase en het integreren van het anker spreek jij langdurig aaneengesloten, terwijl de cliënt alleen bevestigt of kort reageert. Dit is deels inherent aan de NLP-methode, maar vraag je af of je de cliënt vaker een actieve stem kunt geven, ook binnen de techniek.</p>
+      </div>
+
+    </article>
+
+  </div>
+</section>
+
+<section class="final-cta-section">
+  <div class="wide">
+    <div class="final-cta">
+      <div>
+        <h2>Klaar om je eigen sessie te laten analyseren?</h2>
+        <p>Upload een opname of een schriftelijke reflectie en ontvang binnen 5 tot 15 minuten je eigen rapport.</p>
+      </div>
+      <a class="btn btn-primary" href="https://coachtribe.nl/coachtribe-review/">Start je eerste review →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wide footer-grid">
+    <div>© 2026 CoachTribe Review</div>
+    <div>Beoordeeld door een EMCC/NOBCO-geaccrediteerde Master Coach · Professioneel PDF-rapport · Beveiligde upload</div>
+  </div>
+</footer>
+
+<script>
+function showReport(which){
+  document.getElementById('doc-reflectie').classList.toggle('active', which === 'reflectie');
+  document.getElementById('doc-sessie').classList.toggle('active', which === 'sessie');
+  document.getElementById('btn-reflectie').classList.toggle('active', which === 'reflectie');
+  document.getElementById('btn-sessie').classList.toggle('active', which === 'sessie');
+  window.scrollTo({top: document.querySelector('.switcher-wrap').offsetTop - 20, behavior:'smooth'});
+}
+</script>
+
 </body>
 </html>

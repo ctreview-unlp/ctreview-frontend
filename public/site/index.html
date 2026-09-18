@@ -108,6 +108,8 @@ h2{
   border:1px solid var(--border);border-radius:28px;background:#fff;
   min-height:390px;display:grid;place-items:center;padding:32px;box-shadow:var(--shadow)
 }
+.illustration.illustration-photo{padding:0;overflow:hidden}
+.illustration.illustration-photo img{width:100%;height:100%;min-height:390px;object-fit:cover;border-radius:28px;display:block}
 .coach-scene{display:flex;gap:70px;align-items:end}
 .person{position:relative;width:90px;height:180px}
 .person .head{position:absolute;top:0;left:27px;width:38px;height:38px;border-radius:50%;border:2px solid var(--navy)}
@@ -2008,11 +2010,8 @@ html{scroll-behavior:smooth}
 
 <section class="section-soft">
   <div class="container problem-grid">
-    <div class="illustration">
-      <div class="coach-scene">
-        <div class="person"><span class="head"></span><span class="body"></span><span class="chair"></span></div>
-        <div class="person gold"><span class="head"></span><span class="body"></span><span class="chair"></span></div>
-      </div>
+    <div class="illustration illustration-photo">
+      <img src="/images/DSC01799.jpg" alt="Coach begeleidt een groep coaches tijdens een NLP-training" loading="lazy">
     </div>
     <div>
       <div class="kicker">Het probleem</div>
