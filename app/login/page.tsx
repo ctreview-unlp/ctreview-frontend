@@ -3,6 +3,16 @@
 import { useState } from 'react'
 import { supabase } from '@/app/lib/supabase'
 
+function translateAuthError(message: string): string {
+  const translations: Record<string, string> = {
+    'Invalid login credentials': 'E-mailadres of wachtwoord is onjuist.',
+    'Email not confirmed': 'Bevestig eerst je e-mailadres voordat je inlogt.',
+    'User not found': 'Er bestaat geen account met dit e-mailadres.',
+    'Too many requests': 'Te veel pogingen. Probeer het straks opnieuw.',
+  }
+  return translations[message] || 'Er is iets misgegaan. Probeer het opnieuw.'
+}
+
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,7 +28,7 @@ export default function LoginPage() {
 
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
-      setError(error.message)
+      setError(translateAuthError(error.message))
       setLoading(false)
     } else {
       const params = new URLSearchParams(window.location.search)
@@ -38,7 +48,7 @@ export default function LoginPage() {
       redirectTo: `${window.location.origin}/reset-password`,
     })
     if (error) {
-      setError(error.message)
+      setError(translateAuthError(error.message))
     } else {
       setResetSent(true)
     }
