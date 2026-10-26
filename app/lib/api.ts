@@ -39,7 +39,10 @@ export async function uploadFilesToSupabase(
         endpoint: `${supabaseUrl}/storage/v1/upload/resumable`,
         retryDelays: [0, 3000, 5000, 10000, 20000],
         headers: {
-          authorization: `Bearer ${supabaseAnonKey}`,
+          // Upload as the logged-in user. The publishable key goes in `apikey`;
+          // it isn't a JWT, so it can't be the bearer token.
+          authorization: `Bearer ${session.access_token}`,
+          apikey: supabaseAnonKey,
           'x-upsert': 'true',
         },
         uploadDataDuringCreation: true,
